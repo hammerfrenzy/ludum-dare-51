@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MateController : MonoBehaviour
 {
-    public GameManagerController gameManager;
+    GameManagerController gameManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,6 +14,7 @@ public class MateController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        UnityEngine.Debug.Log("mate");
         gameManager.mateReset();
     }
 }
