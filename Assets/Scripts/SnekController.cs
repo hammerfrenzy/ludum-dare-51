@@ -11,7 +11,15 @@ public class SnekController : MonoBehaviour
     public TraitSlotController upperBodySlotController;
     public TraitSlotController lowerBodySlotController;
     public TraitSlotController legsSlotController;
+
+    // Editor Hookups
     public DeathAnimController deathAnim;
+    public GenotypeUI HeadGenotypeUI;
+    public GenotypeUI ArmsGenotypeUI;
+    public GenotypeUI UpperBodyGenotypeUI;
+    public GenotypeUI LowerBodyGenotypeUI;
+    public GenotypeUI LegsGenotypeUI;
+
     // Stats
     public float speed = 3.0f;
     public float attractiveness = 1.0f;
@@ -26,7 +34,7 @@ public class SnekController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private GameManagerController gameManager;
     private TraitsBankController traitBank;
-    
+
     private Animator animator;
     private MateController currentMate;
 
@@ -87,22 +95,28 @@ public class SnekController : MonoBehaviour
     public void SetTrait(TraitSlotController mateTraitController)
     {
         Trait potentialTrait = mateTraitController.currentTrait;
+        Genotype genotype;
         switch (mateTraitController.slotType)
         {
             case SlotType.Head:
-                CrossTraits(headSlotController, mateTraitController);
+                genotype = CrossTraits(headSlotController, mateTraitController);
+                HeadGenotypeUI.SetGenotype(genotype);
                 break;
             case SlotType.Arms:
-                CrossTraits(armsSlotController, mateTraitController);
+                genotype = CrossTraits(armsSlotController, mateTraitController);
+                ArmsGenotypeUI.SetGenotype(genotype);
                 break;
             case SlotType.UpperBody:
-                CrossTraits(upperBodySlotController, mateTraitController);
+                genotype = CrossTraits(upperBodySlotController, mateTraitController);
+                UpperBodyGenotypeUI.SetGenotype(genotype);
                 break;
             case SlotType.LowerBody:
-                CrossTraits(lowerBodySlotController, mateTraitController);
+                genotype = CrossTraits(lowerBodySlotController, mateTraitController);
+                LowerBodyGenotypeUI.SetGenotype(genotype);
                 break;
             case SlotType.Legs:
-                CrossTraits(legsSlotController, mateTraitController);
+                genotype = CrossTraits(legsSlotController, mateTraitController);
+                LegsGenotypeUI.SetGenotype(genotype);
                 break;
         }
 
@@ -172,13 +186,15 @@ public class SnekController : MonoBehaviour
         }
     }
 
-    private void CrossTraits(TraitSlotController snekTraitController, TraitSlotController mateTraitController)
+    private Genotype CrossTraits(TraitSlotController snekTraitController, TraitSlotController mateTraitController)
     {
         var snekGenotype = snekTraitController.genotype;
         var mateGenotype = mateTraitController.genotype;
         var newGenotype = snekGenotype.CrossedWith(mateGenotype);
         var newPhenotype = traitBank.GetTrait(snekTraitController.slotType, newGenotype);
         snekTraitController.SetTrait(newPhenotype, newGenotype);
+
+        return newGenotype;
     }
 
     #region Scene Resetting
