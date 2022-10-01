@@ -12,16 +12,15 @@ public class SnekController : MonoBehaviour
     float disableMovementTimer = 0.2f;
     bool disableMovement = false;
 
-    GameManagerController gameManager;
-
+    Animator animator;
     // Stats
     public float speed = 3.0f;
 
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManagerController>();
     }
 
     // Update is called once per frame
@@ -29,6 +28,9 @@ public class SnekController : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
+
+        animator.SetFloat("X Look", horizontal);
+
         if (disableMovement)
         {
             disableMovementTimer -= Time.deltaTime;

@@ -19,12 +19,13 @@ public class GameManagerController : MonoBehaviour
         timer -= Time.deltaTime;
         if (timer < 0)
         {
-            UnityEngine.Debug.Log("Your BloodLine is Dead");
+            UnityEngine.Debug.Log("Your bloodline is dead");
         }
     }
 
     public void mateReset()
     {
+        // Player successfully found a mate
         timer = 10f;
         snek.resetSnek();
     }
