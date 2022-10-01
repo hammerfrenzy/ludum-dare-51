@@ -112,7 +112,7 @@ public class GameManagerController : MonoBehaviour
         RemoveMates();
 
         var totalSpawnRings = 6;
-        var ringSpacing = 10;
+        var ringSpacing = 8;
         var startMates = 1;
         var radialRandomness = 0.4f; // might need to change per ring?
 
