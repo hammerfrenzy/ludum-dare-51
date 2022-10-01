@@ -25,6 +25,7 @@ public class SnekController : MonoBehaviour
     private Rigidbody2D rigidbody2d;
     private SpriteRenderer spriteRenderer;
     private GameManagerController gameManager;
+    private TraitsBankController traitBank;
     private float horizontal;
     private float vertical;
     private bool didPressMate = false;
@@ -36,6 +37,7 @@ public class SnekController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         gameManager = FindObjectOfType<GameManagerController>();
+        traitBank = FindObjectOfType<TraitsBankController>();
 
         StartCoroutine(RotateJankyForever());
     }
@@ -77,29 +79,28 @@ public class SnekController : MonoBehaviour
         rigidbody2d.MovePosition(position);
     }
 
-    public void SetTrait(TraitSlotController slot)
+    public void SetTrait(TraitSlotController mateTraitController)
     {
-        Trait potentialTrait = slot.currentTrait;
-        UnityEngine.Debug.Log(slot.slotType);
-        UnityEngine.Debug.Log(potentialTrait);
-        switch (slot.slotType)
+        Trait potentialTrait = mateTraitController.currentTrait;
+        switch (mateTraitController.slotType)
         {
             case SlotType.Head:
-                DecideTrait(headSlotController, potentialTrait);
+                CrossTraits(headSlotController, mateTraitController);
                 break;
             case SlotType.Arms:
-                DecideTrait(armsSlotController, potentialTrait);
+                CrossTraits(armsSlotController, mateTraitController);
                 break;
             case SlotType.UpperBody:
-                DecideTrait(upperBodySlotController, potentialTrait);
+                CrossTraits(upperBodySlotController, mateTraitController);
                 break;
             case SlotType.LowerBody:
-                DecideTrait(lowerBodySlotController, potentialTrait);
+                CrossTraits(lowerBodySlotController, mateTraitController);
                 break;
             case SlotType.Legs:
-                DecideTrait(legsSlotController, potentialTrait);
+                CrossTraits(legsSlotController, mateTraitController);
                 break;
         }
+
         // TODO: Update stats based on the new trait?
     }
 
@@ -148,22 +149,21 @@ public class SnekController : MonoBehaviour
 
     private void Metaphase(MateController mate)
     {
-        foreach(var slot in mate.traitSlotControllers)
+        foreach (var mateTraitController in mate.traitSlotControllers)
         {
-            SetTrait(slot);
+            SetTrait(mateTraitController);
         }
     }
 
-    private void DecideTrait(TraitSlotController slotController, Trait potentialTrait)
+    private void CrossTraits(TraitSlotController snekTraitController, TraitSlotController mateTraitController)
     {
-        // TODO: punnet square / more complicated random decision thing here in the future.
-        // If you need to access the trait currently in the slotController: slotController.currentTrait.
-        var coinFlip = Random.Range(0, 2);
-        if (coinFlip == 1)
-        {
-            slotController.SetTrait(potentialTrait);
-        }
+        var snekGenotype = snekTraitController.genotype;
+        var mateGenotype = mateTraitController.genotype;
+        var newGenotype = snekGenotype.CrossedWith(mateGenotype);
+        var newPhenotype = traitBank.GetTrait(snekTraitController.slotType, newGenotype);
+        snekTraitController.SetTrait(newPhenotype, newGenotype);
     }
+
     #region Scene Resetting
 
     // Called by GameManagerController when the user finds a mate
