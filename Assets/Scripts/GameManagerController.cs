@@ -14,12 +14,14 @@ public class GameManagerController : MonoBehaviour
     public float timer = 10f;
     SnekController snek;
 
+    private LerpCamera lerpCamera;
     private TimerUI timerUI;
     private bool isResetting = false;
 
     void Start()
     {
         snek = GameObject.Find("Snek").GetComponent<SnekController>();
+        lerpCamera = FindObjectOfType<LerpCamera>();
         timerUI = FindObjectOfType<TimerUI>();
     }
 
@@ -58,6 +60,14 @@ public class GameManagerController : MonoBehaviour
             .OnComplete(() =>
             {
                 snek.Reset();
+                var snekPosition = snek.transform.position;
+
+                // Move camera to snek quickly
+                lerpCamera.SnapToPosition(snekPosition);
+
+                // Move overlay so that it shrinks to new snek position
+                GameResetOverlay.transform.position = snek.transform.position;
+
                 ShrinkOverlay();
             });
     }
