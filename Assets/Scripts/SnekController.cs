@@ -14,7 +14,6 @@ public class SnekController : MonoBehaviour
     bool disableMovement = false;
 
     Animator animator;
-    List<Trait> traits;
     
     // Stats
     public float speed = 3.0f;
@@ -28,10 +27,6 @@ public class SnekController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-
-        Trait beefyArm = (Trait)AssetDatabase.LoadAssetAtPath("Assets/Sprites/Traits/Beefy Arm.asset", typeof(Trait));
-        traits.Add(beefyArm);
-        UnityEngine.Debug.Log(beefyArm.type);
     }
 
     // Update is called once per frame
@@ -68,13 +63,5 @@ public class SnekController : MonoBehaviour
         disableMovement = true;
         Vector2 position = new Vector2(0, 0);
         rigidbody2d.MovePosition(position);
-    }
-
-    public void RenderTraits()
-    {
-        foreach(var trait in traits)
-        {
-
-        }
     }
 }
