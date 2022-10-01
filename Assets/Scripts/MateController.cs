@@ -48,7 +48,6 @@ public class MateController : MonoBehaviour
 
     public void AddTraitsPreferring(SnekController snekController)
     {
-        Debug.Log("Assinging traits");
         // For now, choose a random trait from available options
         // (arm, leg, and upper body have an implement trait).
         // This will need to be improved once more traits are available.
