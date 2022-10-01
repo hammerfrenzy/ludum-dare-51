@@ -1,7 +1,4 @@
-using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 using static Trait;
 
@@ -25,15 +22,22 @@ public class SnekController : MonoBehaviour
     private Rigidbody2D rigidbody2d;
     private SpriteRenderer spriteRenderer;
     private GameManagerController gameManager;
+
     private TraitsBankController traitBank;
+
+    private Animator animator;
+    private MateController currentMate;
+
     private float horizontal;
     private float vertical;
     private bool didPressMate = false;
     private bool disableMovement = false;
 
+
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         gameManager = FindObjectOfType<GameManagerController>();
@@ -110,11 +114,11 @@ public class SnekController : MonoBehaviour
     // and seems to be running after this callback.
     private void OnTriggerStay2D(Collider2D collision)
     {
-        var mate = collision.GetComponent<MateController>();
+        currentMate = collision.GetComponent<MateController>();
 
-        if (mate != null && didPressMate)
+        if (currentMate != null && didPressMate)
         {
-            Metaphase(mate);
+            animator.SetTrigger("MateTrigger");
             gameManager.MateReset();
         }
 
@@ -176,11 +180,13 @@ public class SnekController : MonoBehaviour
     public void Reset()
     {
         transform.position = Vector3.zero;
+        Metaphase(currentMate);
     }
 
     // Called by GameManagerController when the reset process is completed
     public void EndMating()
     {
+        currentMate = null;
         disableMovement = false;
     }
 
