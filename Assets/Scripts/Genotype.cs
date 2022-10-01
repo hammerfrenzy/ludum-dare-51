@@ -42,12 +42,12 @@ public struct Genotype
             return Phenotype.Orange;
         }
 
-        if (!(alleleA1 || alleleA2))
+        if (!(alleleA1 || alleleA2) && (alleleB1 || alleleB2))
         {
             return Phenotype.Green;
         }
 
-        if (!(alleleB1 || alleleB2))
+        if (!(alleleB1 || alleleB2) && (alleleA1 || alleleA2))
         {
             return Phenotype.Purple;
         }
