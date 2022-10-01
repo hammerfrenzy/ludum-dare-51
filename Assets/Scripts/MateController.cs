@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MateController : MonoBehaviour
@@ -13,6 +14,7 @@ public class MateController : MonoBehaviour
     private TraitsBankController traitsBank;
     private SpriteRenderer spriteRenderer;
 
+    public List<Trait> traits;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,15 +41,21 @@ public class MateController : MonoBehaviour
         var traitRoll = Random.Range(0, 3);
         if (traitRoll == 0)
         {
-            SetTrait(traitsBank.GetRandomArm());
+            var armTrait = traitsBank.GetRandomArm();
+            traits.Add(armTrait);
+            SetTrait(armTrait);
         }
         else if (traitRoll == 1)
         {
-            SetTrait(traitsBank.GetRandomLegs());
+            var legTrait = traitsBank.GetRandomLegs();
+            traits.Add(legTrait);
+            SetTrait(legTrait);
         }
         else if (traitRoll == 2)
         {
-            SetTrait(traitsBank.GetRandomUpperBody());
+            var upperBodyTrait = traitsBank.GetRandomUpperBody();
+            traits.Add(upperBodyTrait);
+            SetTrait(upperBodyTrait);
         }
     }
 

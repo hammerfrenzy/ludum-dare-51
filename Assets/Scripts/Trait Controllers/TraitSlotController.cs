@@ -9,6 +9,7 @@ public class TraitSlotController : MonoBehaviour
     // Start is called before the first frame update
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    public Trait currentTrait;
 
     void Start()
     {
@@ -18,6 +19,7 @@ public class TraitSlotController : MonoBehaviour
 
     public void SetTrait(Trait trait)
     {
+        currentTrait = trait;
         spriteRenderer.sprite = trait.image;
         animator.runtimeAnimatorController = trait.animator;
     }
