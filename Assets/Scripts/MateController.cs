@@ -23,6 +23,12 @@ public class MateController : MonoBehaviour
     {
         traitsBank = FindObjectOfType<TraitsBankController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        traitSlotControllers.Add(headSlotController);
+        traitSlotControllers.Add(armsSlotController);
+        traitSlotControllers.Add(upperBodySlotController);
+        traitSlotControllers.Add(lowerBodySlotController);
+        traitSlotControllers.Add(legsSlotController);
     }
 
     // Start is called before the first frame update
@@ -36,12 +42,6 @@ public class MateController : MonoBehaviour
         upperBodySlotController.SetIsFlipped(true);
         lowerBodySlotController.SetIsFlipped(true);
         legsSlotController.SetIsFlipped(true);
-
-        traitSlotControllers.Add(headSlotController);
-        traitSlotControllers.Add(armsSlotController);
-        traitSlotControllers.Add(upperBodySlotController);
-        traitSlotControllers.Add(lowerBodySlotController);
-        traitSlotControllers.Add(legsSlotController);
 
         StartCoroutine(RotateJankyForever());
     }
@@ -69,23 +69,18 @@ public class MateController : MonoBehaviour
         {
             case Trait.SlotType.Head:
                 headSlotController.SetTrait(phenotype, Genotype.Randomized());
-                UnityEngine.Debug.Log(headSlotController.currentTrait);
                 break;
             case Trait.SlotType.Arms:
                 armsSlotController.SetTrait(phenotype, Genotype.Randomized());
-                UnityEngine.Debug.Log(armsSlotController.currentTrait);
                 break;
             case Trait.SlotType.UpperBody:
                 upperBodySlotController.SetTrait(phenotype, Genotype.Randomized());
-                UnityEngine.Debug.Log(upperBodySlotController.currentTrait);
                 break;
             case Trait.SlotType.LowerBody:
                 lowerBodySlotController.SetTrait(phenotype, Genotype.Randomized());
-                UnityEngine.Debug.Log(lowerBodySlotController.currentTrait);
                 break;
             case Trait.SlotType.Legs:
                 legsSlotController.SetTrait(phenotype, Genotype.Randomized());
-                UnityEngine.Debug.Log(legsSlotController.currentTrait);
                 break;
         }
     }
