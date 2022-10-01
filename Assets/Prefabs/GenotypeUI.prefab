@@ -205,10 +205,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58fdd4481ed67f8428ff8b09f58d9896, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DominantA: {fileID: 21300000, guid: a9a0cb26f0d26f24299d38bdb9c5a0e9, type: 3}
-  RecessiveA: {fileID: 21300000, guid: 26879aecbacf3404d8541a168e580af0, type: 3}
-  DominantB: {fileID: 21300000, guid: 51083035f06ad47468d73550d8f5f930, type: 3}
-  RecessiveB: {fileID: 21300000, guid: 01fc3ae178d72cc4eb9e620befc43c0a, type: 3}
+  DominantA: {fileID: 21300000, guid: dd71751afffd5eb44b9d31151f5dbdfc, type: 3}
+  RecessiveA: {fileID: 21300000, guid: cd01499781112f94689f6d15c2fb4825, type: 3}
+  DominantB: {fileID: 21300000, guid: 57de8035467392a4d876f4f0709e10f2, type: 3}
+  RecessiveB: {fileID: 21300000, guid: b93468ccb25aade47a0c4faf37e38dc9, type: 3}
   AlleleA1Image: {fileID: 9198753846278665117}
   AlleleA2Image: {fileID: 9198753846662481867}
   AlleleB1Image: {fileID: 9198753846895563299}
