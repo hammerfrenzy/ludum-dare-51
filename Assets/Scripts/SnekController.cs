@@ -15,6 +15,9 @@ public class SnekController : MonoBehaviour
 
     Animator animator;
     
+    // Trait Slots
+    ArmsSlotController armsSlotController;
+
     // Stats
     public float speed = 3.0f;
     public float attractiveness = 1.0f;
