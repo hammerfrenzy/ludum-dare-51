@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ArmsSlotController : MonoBehaviour
+[RequireComponent(typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator))]
+public class TraitSlotController : MonoBehaviour
 {
     // Start is called before the first frame update
-    SpriteRenderer spriteRenderer;
-    Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private Animator animator;
+
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -17,5 +20,10 @@ public class ArmsSlotController : MonoBehaviour
     {
         spriteRenderer.sprite = trait.image;
         animator.runtimeAnimatorController = trait.animator;
+    }
+
+    public void SetIsFlipped(bool isFlipped)
+    {
+        spriteRenderer.flipX = isFlipped;
     }
 }
