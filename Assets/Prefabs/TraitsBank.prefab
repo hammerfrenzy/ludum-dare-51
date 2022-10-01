@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4522620365031293173
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4522620365031293175}
+  - component: {fileID: 4522620365031293172}
+  m_Layer: 0
+  m_Name: TraitsBank
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4522620365031293175
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4522620365031293173}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.3021665, y: -0.78076947, z: -0.099501744}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4522620365031293172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4522620365031293173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 356d3224bebdac946a71cf2b8533d7ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  headTraits:
+  - {fileID: 11400000, guid: 53bcf66bb06a348459b552fe4f6b761a, type: 2}
+  - {fileID: 11400000, guid: e1a0ffc21a43e3e4a8fe45fd03289695, type: 2}
+  - {fileID: 11400000, guid: b10988dfbc70845418b02126ac31f2fc, type: 2}
+  - {fileID: 11400000, guid: e1a0ffc21a43e3e4a8fe45fd03289695, type: 2}
+  armTraits:
+  - {fileID: 11400000, guid: c439e96870c559d44bb798bed8491dba, type: 2}
+  - {fileID: 11400000, guid: acd5ebe358ae5e244b321021bbf2da47, type: 2}
+  - {fileID: 11400000, guid: acd5ebe358ae5e244b321021bbf2da47, type: 2}
+  - {fileID: 11400000, guid: acd5ebe358ae5e244b321021bbf2da47, type: 2}
+  upperBodyTraits:
+  - {fileID: 11400000, guid: b033e0250718f284a8481523406fcb36, type: 2}
+  - {fileID: 11400000, guid: 73a9fef2a9ef75844bbc9851030e1be8, type: 2}
+  - {fileID: 11400000, guid: 73a9fef2a9ef75844bbc9851030e1be8, type: 2}
+  - {fileID: 11400000, guid: 73a9fef2a9ef75844bbc9851030e1be8, type: 2}
+  lowerBodyTraits:
+  - {fileID: 11400000, guid: 338bd25f5ea07a743955f6d4b272026c, type: 2}
+  - {fileID: 11400000, guid: 48d17a32acb112b4488be451c6279c22, type: 2}
+  - {fileID: 11400000, guid: 48d17a32acb112b4488be451c6279c22, type: 2}
+  - {fileID: 11400000, guid: 48d17a32acb112b4488be451c6279c22, type: 2}
+  legsTraits:
+  - {fileID: 11400000, guid: bf5b799c5b63a7e47bf5f22f68c36423, type: 2}
+  - {fileID: 11400000, guid: 314502e6862364744965a6de51a62450, type: 2}
+  - {fileID: 11400000, guid: 3bed1b509966a5e4c863334d8109f579, type: 2}
+  - {fileID: 11400000, guid: 3bed1b509966a5e4c863334d8109f579, type: 2}

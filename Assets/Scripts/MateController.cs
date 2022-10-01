@@ -23,6 +23,12 @@ public class MateController : MonoBehaviour
     {
         traitsBank = FindObjectOfType<TraitsBankController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        traitSlotControllers.Add(headSlotController);
+        traitSlotControllers.Add(armsSlotController);
+        traitSlotControllers.Add(upperBodySlotController);
+        traitSlotControllers.Add(lowerBodySlotController);
+        traitSlotControllers.Add(legsSlotController);
     }
 
     // Start is called before the first frame update
@@ -36,12 +42,6 @@ public class MateController : MonoBehaviour
         upperBodySlotController.SetIsFlipped(true);
         lowerBodySlotController.SetIsFlipped(true);
         legsSlotController.SetIsFlipped(true);
-
-        traitSlotControllers.Add(headSlotController);
-        traitSlotControllers.Add(armsSlotController);
-        traitSlotControllers.Add(upperBodySlotController);
-        traitSlotControllers.Add(lowerBodySlotController);
-        traitSlotControllers.Add(legsSlotController);
 
         StartCoroutine(RotateJankyForever());
     }
