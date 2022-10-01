@@ -40,6 +40,8 @@ public class MateController : MonoBehaviour
         {
             // Display Mate Prompt
             UnityEngine.Debug.Log(traitsBank.getRandomArm());
+            
+            //temporary for testing, we should call getRandomArm when randomly assigning traits to the mate on spawn.
             snek.SetTrait(traitsBank.getRandomArm());
             gameManager.MateReset();
         }
