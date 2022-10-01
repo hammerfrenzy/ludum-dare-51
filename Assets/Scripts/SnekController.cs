@@ -15,8 +15,13 @@ public class SnekController : MonoBehaviour
 
     Animator animator;
     List<Trait> traits;
+    
     // Stats
     public float speed = 3.0f;
+    public float attractiveness = 1.0f;
+    public float intimidation = 1.0f;
+    public int maxHealth = 10;
+    public int currentHealth;
 
     // Start is called before the first frame update
     void Start()
