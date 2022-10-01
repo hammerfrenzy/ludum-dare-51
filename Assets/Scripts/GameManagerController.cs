@@ -48,7 +48,8 @@ public class GameManagerController : MonoBehaviour
     // Reset the board state
     public void MateReset()
     {
-        // Play Mate animation here
+        isResetting = true;
+
         var screenSize = new Vector2(Screen.width, Screen.height);
         var heartPosition = Camera.main.ScreenToWorldPoint(screenSize / 2);
         GameResetOverlay.transform.position = new Vector3(heartPosition.x, heartPosition.y, 0);
@@ -75,6 +76,7 @@ public class GameManagerController : MonoBehaviour
                 // Move overlay so that it shrinks to new snek position
                 GameResetOverlay.transform.position = snek.transform.position;
 
+                SpawnMates();
                 ShrinkOverlay();
             });
     }
@@ -89,6 +91,7 @@ public class GameManagerController : MonoBehaviour
         {
             snek.EndMating();
             timer = 10f;
+            isResetting = false;
         });
     }
 
@@ -96,32 +99,32 @@ public class GameManagerController : MonoBehaviour
     {
         RemoveMates();
 
-        var spawnRingCount = 4;
+        var totalSpawnRings = 6;
         var ringSpacing = 10;
-        var startMates = 2;
+        var startMates = 1;
+        var radialRandomness = 0.4f; // might need to change per ring?
 
-        for (int i = 0; i < spawnRingCount; i++)
+        for (int i = 0; i < totalSpawnRings; i++)
         {
             var matesInThisRing = startMates + (i * 2);
             var radialSpacing = (360f / matesInThisRing) * Mathf.Deg2Rad;
+            var ringDistance = (i + 1) * ringSpacing;
+            var radialOffsetForRing = Random.Range(0, Mathf.PI);
 
             for (int m = 0; m < matesInThisRing; m++)
             {
-                // - Choose point on edge of ring
-                var ringDistance = (i + 1) * ringSpacing;
-
-                // - Offset rotation by cos/sin(360/m)
-                var dr = radialSpacing * m; // should have random offset (maybe +/- ~0.2 radians?)
+                // Randomize radial position
+                var radialOffsetForMate = Random.Range(-radialRandomness, radialRandomness);
+                var dr = (radialSpacing * m) + radialOffsetForRing;
                 var dx = Mathf.Cos(dr) * ringDistance;
                 var dy = Mathf.Sin(dr) * ringDistance;
 
-                var radialOffset = new Vector2(dx, dy);
-
+                var finalRadialOffset = new Vector2(dx, dy);
 
                 // - Offset within unit circle
                 var flatOffset = Random.insideUnitCircle * 0.25f;
 
-                var finalPosition = radialOffset;// + offset;
+                var finalPosition = finalRadialOffset + flatOffset;
                 var mateObject = Instantiate(MatePrefab, finalPosition, Quaternion.identity);
 
                 // - Assign Traits
