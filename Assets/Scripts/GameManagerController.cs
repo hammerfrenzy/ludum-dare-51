@@ -127,7 +127,11 @@ public class GameManagerController : MonoBehaviour
                 var flatOffset = Random.insideUnitCircle * 0.25f;
 
                 var finalPosition = finalRadialOffset + flatOffset;
-                var mateObject = Instantiate(MatePrefab, finalPosition, Quaternion.identity);
+                var mateObject = Instantiate(
+                    MatePrefab,
+                    finalPosition,
+                    Quaternion.identity,
+                    transform);
 
                 // - Assign Traits
                 var mate = mateObject.GetComponent<MateController>();
