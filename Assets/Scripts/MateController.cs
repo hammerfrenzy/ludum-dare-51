@@ -4,11 +4,13 @@ using UnityEngine;
 public class MateController : MonoBehaviour
 {
     GameManagerController gameManager;
+    TraitsBankController traitsBank;
     bool mateButton;
     // Start is called before the first frame update
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManagerController>();
+        traitsBank = GameObject.Find("TraitsBank").GetComponent<TraitsBankController>();
         WanderAround();
     }
 
@@ -37,7 +39,10 @@ public class MateController : MonoBehaviour
         if (mateButton && snek != null)
         {
             // Display Mate Prompt
-            UnityEngine.Debug.Log("mate");
+            UnityEngine.Debug.Log(traitsBank.getRandomArm());
+            
+            //temporary for testing, we should call getRandomArm when randomly assigning traits to the mate on spawn.
+            snek.SetTrait(traitsBank.getRandomArm());
             gameManager.MateReset();
         }
     }

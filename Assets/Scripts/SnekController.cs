@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using static Trait;
 
 public class SnekController : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class SnekController : MonoBehaviour
 
     Animator animator;
     
+    // Trait Slots
+    public ArmsSlotController armsSlotController;
+
     // Stats
     public float speed = 3.0f;
     public float attractiveness = 1.0f;
@@ -56,6 +60,18 @@ public class SnekController : MonoBehaviour
         position.x = position.x + speed * horizontal * Time.deltaTime;
         position.y = position.y + speed * vertical * Time.deltaTime;
         rigidbody2d.MovePosition(position);
+    }
+
+    public void SetTrait(Trait trait)
+    {
+        switch(trait.type)
+        {
+            case SlotType.Arms:
+            {
+                armsSlotController.SetTrait(trait);
+                break;
+            }
+        }
     }
 
     public void ResetSnek()
