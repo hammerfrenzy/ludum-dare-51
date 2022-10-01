@@ -53,6 +53,7 @@ public class GameManagerController : MonoBehaviour
         var screenSize = new Vector2(Screen.width, Screen.height);
         var heartPosition = Camera.main.ScreenToWorldPoint(screenSize / 2);
         GameResetOverlay.transform.position = new Vector3(heartPosition.x, heartPosition.y, 0);
+        timerUI.SetHidden(true);
 
         snek.StartMating();
 
@@ -91,6 +92,7 @@ public class GameManagerController : MonoBehaviour
         {
             snek.EndMating();
             timer = 10f;
+            timerUI.SetHidden(false);
             isResetting = false;
         });
     }

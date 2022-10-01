@@ -5,12 +5,19 @@ using UnityEngine.UI;
 
 public class TimerUI : MonoBehaviour
 {
+    private CanvasGroup timerGroup;
     private Image countdownFiller;
-    private float fullBarWidth = 800f;
+    private float fullBarWidth = 750f;
 
     void Start()
     {
+        timerGroup = GetComponentInParent<CanvasGroup>();
         countdownFiller = GetComponent<Image>();
+    }
+
+    public void SetHidden(bool isHidden)
+    {
+        timerGroup.alpha = isHidden ? 0 : 1;
     }
 
     public void UpdateWithRemainingTime(float time)
