@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Teeth
   m_EditorClassIdentifier: 
   name: Teeth
-  image: {fileID: 21300000, guid: 505c1f9f8d2f94741b5890dd2c812698, type: 3}
-  animator: {fileID: 0}
+  image: {fileID: 21300000, guid: 1b9ad7ed1d70d1c4cbe1129c83c44a53, type: 3}
+  animator: {fileID: 9100000, guid: ca27ad3defdd58f4e9f350ddc48410c8, type: 2}
   offset: {x: 0, y: 0}
   speedModifier: 0
   attractivenessModifier: 1
