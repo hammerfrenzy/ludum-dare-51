@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,6 +42,8 @@ public class MateController : MonoBehaviour
         traitSlotControllers.Add(upperBodySlotController);
         traitSlotControllers.Add(lowerBodySlotController);
         traitSlotControllers.Add(legsSlotController);
+
+        StartCoroutine(RotateJankyForever());
     }
 
     public void AddTraitsPreferring(SnekController snekController)
@@ -106,6 +109,7 @@ public class MateController : MonoBehaviour
         var targetPosition = transform.position + (Vector3)Random.insideUnitCircle;
         transform
             .DOMove(targetPosition, 2f)
+            .SetDelay(Random.Range(0, 0.5f))
             .OnComplete(() =>
             {
                 WanderAround();
@@ -140,5 +144,21 @@ public class MateController : MonoBehaviour
         upperBodySlotController.SetIsFlipped(!newFlipState);
         lowerBodySlotController.SetIsFlipped(!newFlipState);
         legsSlotController.SetIsFlipped(!newFlipState);
+    }
+
+    private IEnumerator RotateJankyForever()
+    {
+        var moveRight = true;
+        var maxRotation = 3;
+        var zRotation = maxRotation;
+        while (true)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, zRotation);
+            if (zRotation == maxRotation) moveRight = false;
+            if (zRotation == -maxRotation) moveRight = true;
+            zRotation = moveRight ? zRotation + maxRotation : zRotation - maxRotation;
+
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 }
