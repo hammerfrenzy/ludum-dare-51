@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameManagerController : MonoBehaviour
@@ -11,18 +10,24 @@ public class GameManagerController : MonoBehaviour
     // so that Snek can have private time
     public GameObject GameResetOverlay;
 
-    public float timer = 10f;
-    SnekController snek;
+    // Prefab mate for spawning
+    public GameObject MatePrefab;
 
+    private SnekController snek;
+    private List<GameObject> mates;
     private LerpCamera lerpCamera;
     private TimerUI timerUI;
+    private float timer = 10f;
     private bool isResetting = false;
 
     void Start()
     {
-        snek = GameObject.Find("Snek").GetComponent<SnekController>();
+        snek = FindObjectOfType<SnekController>();
         lerpCamera = FindObjectOfType<LerpCamera>();
         timerUI = FindObjectOfType<TimerUI>();
+        mates = new List<GameObject>();
+
+        SpawnMates();
     }
 
     // Update is called once per frame
@@ -85,5 +90,55 @@ public class GameManagerController : MonoBehaviour
             snek.EndMating();
             timer = 10f;
         });
+    }
+
+    private void SpawnMates()
+    {
+        RemoveMates();
+
+        var spawnRingCount = 4;
+        var ringSpacing = 10;
+        var startMates = 2;
+
+        for (int i = 0; i < spawnRingCount; i++)
+        {
+            var matesInThisRing = startMates + (i * 2);
+            var radialSpacing = (360f / matesInThisRing) * Mathf.Deg2Rad;
+
+            for (int m = 0; m < matesInThisRing; m++)
+            {
+                // - Choose point on edge of ring
+                var ringDistance = (i + 1) * ringSpacing;
+
+                // - Offset rotation by cos/sin(360/m)
+                var dr = radialSpacing * m; // should have random offset (maybe +/- ~0.2 radians?)
+                var dx = Mathf.Cos(dr) * ringDistance;
+                var dy = Mathf.Sin(dr) * ringDistance;
+
+                var radialOffset = new Vector2(dx, dy);
+
+
+                // - Offset within unit circle
+                var flatOffset = Random.insideUnitCircle * 0.25f;
+
+                var finalPosition = radialOffset;// + offset;
+                var mateObject = Instantiate(MatePrefab, finalPosition, Quaternion.identity);
+
+                // - Assign Traits
+                var mate = mateObject.GetComponent<MateController>();
+                mate.GetComponentsDuringSpawn();
+                mate.AddTraitsPreferring(snek);
+            }
+        }
+    }
+
+    private void RemoveMates()
+    {
+        foreach (var mate in mates)
+        {
+            Destroy(mate);
+        }
+
+        mates.Clear();
     }
 }

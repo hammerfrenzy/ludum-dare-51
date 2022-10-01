@@ -12,7 +12,7 @@ public class TraitSlotController : MonoBehaviour
     public Trait.SlotType slotType;
     public Trait currentTrait;
 
-    void Start()
+    void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
@@ -22,7 +22,7 @@ public class TraitSlotController : MonoBehaviour
     {
         currentTrait = trait;
 
-        if(trait == null)
+        if (trait == null)
         {
             spriteRenderer.sprite = null;
             animator.runtimeAnimatorController = null;

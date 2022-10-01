@@ -17,13 +17,16 @@ public class MateController : MonoBehaviour
     public List<Trait> traits;
     public List<TraitSlotController> traitSlotControllers;
 
-    // Start is called before the first frame update
-    void Start()
+    public void GetComponentsDuringSpawn()
     {
         traitsBank = FindObjectOfType<TraitsBankController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        Debug.Log($"trait bank: {traitsBank}, renderer: {spriteRenderer}");
+    }
 
-        AddTraits();
+    // Start is called before the first frame update
+    void Start()
+    {
         WanderAround();
 
         // One-time setup for sprite flipping
@@ -40,8 +43,9 @@ public class MateController : MonoBehaviour
         traitSlotControllers.Add(legsSlotController);
     }
 
-    private void AddTraits()
+    public void AddTraitsPreferring(SnekController snekController)
     {
+        Debug.Log("Assinging traits");
         // For now, choose a random trait from available options
         // (arm, leg, and upper body have an implement trait).
         // This will need to be improved once more traits are available.
