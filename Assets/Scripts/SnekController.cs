@@ -9,12 +9,10 @@ public class SnekController : MonoBehaviour
     Rigidbody2D rigidbody2d;
     float horizontal;
     float vertical;
-
-    float disableMovementTimer = 0.2f;
     bool disableMovement = false;
 
     Animator animator;
-    
+
     // Trait Slots
     ArmsSlotController armsSlotController;
 
@@ -35,21 +33,12 @@ public class SnekController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (disableMovement) return;
+
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
         animator.SetFloat("X Look", horizontal);
-
-        // Stops snake from moving while potential mate animation plays???
-        if (disableMovement)
-        {
-            disableMovementTimer -= Time.deltaTime;
-            if (disableMovementTimer < 0)
-            {
-                disableMovement = false;
-                disableMovementTimer = 0.2f;
-            }
-        }
     }
 
     void FixedUpdate()
@@ -61,10 +50,21 @@ public class SnekController : MonoBehaviour
         rigidbody2d.MovePosition(position);
     }
 
-    public void ResetSnek()
+    // Called by GameManagerController when the user finds a mate
+    public void StartMating()
     {
         disableMovement = true;
-        Vector2 position = new Vector2(0, 0);
-        rigidbody2d.MovePosition(position);
+    }
+
+    // Called by GameManagerController partway through the scene reset process
+    public void Reset()
+    {
+        transform.position = Vector3.zero;
+    }
+
+    // Called by GameManagerController when the reset process is completed
+    public void EndMating()
+    {
+        disableMovement = false;
     }
 }

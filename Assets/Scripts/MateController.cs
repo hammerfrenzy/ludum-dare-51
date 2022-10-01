@@ -8,7 +8,7 @@ public class MateController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManagerController>();
+        gameManager = FindObjectOfType<GameManagerController>();
         WanderAround();
     }
 

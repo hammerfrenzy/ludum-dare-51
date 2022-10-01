@@ -1,4 +1,4 @@
-using DG.Tweening.Core.Easing;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -6,10 +6,16 @@ using UnityEngine;
 
 public class GameManagerController : MonoBehaviour
 {
+    // Assigned in Editor
+    // Scales up to cover the screen
+    // so that Snek can have private time
+    public GameObject GameResetOverlay;
+
     public float timer = 10f;
     SnekController snek;
 
     private TimerUI timerUI;
+    private bool isResetting = false;
 
     void Start()
     {
@@ -20,6 +26,8 @@ public class GameManagerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (isResetting) return;
+
         timer -= Time.deltaTime;
         timerUI.UpdateWithRemainingTime(timer);
         if (timer < 0)
@@ -29,11 +37,40 @@ public class GameManagerController : MonoBehaviour
         }
     }
 
+    // Player found a mate
+    // Reset the board state
     public void MateReset()
     {
-        // Player found a mate
         // Play Mate animation here
-        timer = 10f;
-        snek.ResetSnek();
+        var screenSize = new Vector2(Screen.width, Screen.height);
+        var heartPosition = Camera.main.ScreenToWorldPoint(screenSize / 2);
+        GameResetOverlay.transform.position = new Vector3(heartPosition.x, heartPosition.y, 0);
+
+        snek.StartMating();
+
+        // Scale up & back down.
+        // When finished, start the timer & give control back to player.
+        // Two separate tweens because the Yoyo loop wasn't returning back to zero.
+
+        GameResetOverlay
+            .transform
+            .DOScale(new Vector3(100, 100, 1), 1f)
+            .OnComplete(() =>
+            {
+                snek.Reset();
+                ShrinkOverlay();
+            });
+    }
+
+    private void ShrinkOverlay()
+    {
+        GameResetOverlay
+        .transform
+        .DOScale(new Vector3(0, 0, 1), 1f)
+        .OnComplete(() =>
+        {
+            snek.EndMating();
+            timer = 10f;
+        });
     }
 }
