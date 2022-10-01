@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 using static Trait;
 
 public class SnekController : MonoBehaviour
@@ -17,6 +18,8 @@ public class SnekController : MonoBehaviour
     public float intimidation = 1.0f;
     public int maxHealth = 10;
     public int currentHealth;
+
+    public UnityEvent bruh;
 
     // Private members
     private Rigidbody2D rigidbody2d;
@@ -108,9 +111,13 @@ public class SnekController : MonoBehaviour
 
     public void KillSnek()
     {
-        UnityEngine.Debug.Log("hi");
         animator.SetTrigger("DeathTrigger");
         disableMovement = true;
+    }
+
+    public void DisplayGameOver()
+    {
+        bruh.Invoke();
     }
 
     // Note: This is working because didPressMate is

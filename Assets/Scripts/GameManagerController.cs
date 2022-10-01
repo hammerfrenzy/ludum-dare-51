@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameManagerController : MonoBehaviour
 {
@@ -47,10 +48,9 @@ public class GameManagerController : MonoBehaviour
         timerUI.UpdateWithRemainingTime(timer);
         if (timer < 0)
         {
-            UnityEngine.Debug.Log("bruh");
             gameOver = true;
             snek.KillSnek();
-            gameOverUI.setGameOverVisible(true);
+            //gameOverUI.setGameOverVisible(true);
         }
     }
 
