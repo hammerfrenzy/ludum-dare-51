@@ -19,6 +19,7 @@ public class GameManagerController : MonoBehaviour
     private TimerUI timerUI;
     private float timer = 10f;
     private bool isResetting = false;
+    private bool gameOver = false;
 
     void Start()
     {
@@ -33,14 +34,15 @@ public class GameManagerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isResetting) return;
+        if (isResetting || gameOver) return;
 
         timer -= Time.deltaTime;
         timerUI.UpdateWithRemainingTime(timer);
         if (timer < 0)
         {
-            // Game Over screen here
-            UnityEngine.Debug.Log("Your bloodline is dead");
+            UnityEngine.Debug.Log("bruh");
+            gameOver = true;
+            snek.KillSnek();
         }
     }
 

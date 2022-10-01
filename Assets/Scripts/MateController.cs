@@ -69,23 +69,18 @@ public class MateController : MonoBehaviour
         {
             case Trait.SlotType.Head:
                 headSlotController.SetTrait(phenotype, Genotype.Randomized());
-                UnityEngine.Debug.Log(headSlotController.currentTrait);
                 break;
             case Trait.SlotType.Arms:
                 armsSlotController.SetTrait(phenotype, Genotype.Randomized());
-                UnityEngine.Debug.Log(armsSlotController.currentTrait);
                 break;
             case Trait.SlotType.UpperBody:
                 upperBodySlotController.SetTrait(phenotype, Genotype.Randomized());
-                UnityEngine.Debug.Log(upperBodySlotController.currentTrait);
                 break;
             case Trait.SlotType.LowerBody:
                 lowerBodySlotController.SetTrait(phenotype, Genotype.Randomized());
-                UnityEngine.Debug.Log(lowerBodySlotController.currentTrait);
                 break;
             case Trait.SlotType.Legs:
                 legsSlotController.SetTrait(phenotype, Genotype.Randomized());
-                UnityEngine.Debug.Log(legsSlotController.currentTrait);
                 break;
         }
     }

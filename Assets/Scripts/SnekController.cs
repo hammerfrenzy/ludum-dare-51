@@ -10,7 +10,7 @@ public class SnekController : MonoBehaviour
     public TraitSlotController upperBodySlotController;
     public TraitSlotController lowerBodySlotController;
     public TraitSlotController legsSlotController;
-
+    public DeathAnimController deathAnim;
     // Stats
     public float speed = 3.0f;
     public float attractiveness = 1.0f;
@@ -22,9 +22,8 @@ public class SnekController : MonoBehaviour
     private Rigidbody2D rigidbody2d;
     private SpriteRenderer spriteRenderer;
     private GameManagerController gameManager;
-
     private TraitsBankController traitBank;
-
+    
     private Animator animator;
     private MateController currentMate;
 
@@ -42,7 +41,6 @@ public class SnekController : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         gameManager = FindObjectOfType<GameManagerController>();
         traitBank = FindObjectOfType<TraitsBankController>();
-
         StartCoroutine(RotateJankyForever());
     }
 
@@ -108,6 +106,13 @@ public class SnekController : MonoBehaviour
         // TODO: Update stats based on the new trait?
     }
 
+    public void KillSnek()
+    {
+        UnityEngine.Debug.Log("hi");
+        animator.SetTrigger("DeathTrigger");
+        disableMovement = true;
+    }
+
     // Note: This is working because didPressMate is
     // using GetKey over GetKeyDown. GetKeyDown will
     // only be active for the frame it is pressed,
@@ -149,6 +154,7 @@ public class SnekController : MonoBehaviour
         upperBodySlotController.SetIsFlipped(newFlipState);
         lowerBodySlotController.SetIsFlipped(newFlipState);
         legsSlotController.SetIsFlipped(newFlipState);
+        deathAnim.spriteRenderer.flipX = newFlipState;
     }
 
     private void Metaphase(MateController mate)
