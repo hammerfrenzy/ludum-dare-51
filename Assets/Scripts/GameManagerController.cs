@@ -8,15 +8,20 @@ public class GameManagerController : MonoBehaviour
 {
     public float timer = 10f;
     SnekController snek;
+
+    private TimerUI timerUI;
+
     void Start()
     {
         snek = GameObject.Find("Snek").GetComponent<SnekController>();
+        timerUI = FindObjectOfType<TimerUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
         timer -= Time.deltaTime;
+        timerUI.UpdateWithRemainingTime(timer);
         if (timer < 0)
         {
             // Game Over screen here
