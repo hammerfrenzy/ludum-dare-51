@@ -58,6 +58,7 @@ public class GameManagerController : MonoBehaviour
         GameResetOverlay
             .transform
             .DOScale(new Vector3(100, 100, 1), 1f)
+            .SetEase(Ease.InQuad)
             .OnComplete(() =>
             {
                 snek.Reset();
@@ -78,6 +79,7 @@ public class GameManagerController : MonoBehaviour
         GameResetOverlay
         .transform
         .DOScale(new Vector3(0, 0, 1), 1f)
+        .SetEase(Ease.OutQuad)
         .OnComplete(() =>
         {
             snek.EndMating();

@@ -24,8 +24,10 @@ public class SnekController : MonoBehaviour
     // Private members
     private Rigidbody2D rigidbody2d;
     private SpriteRenderer spriteRenderer;
+    private GameManagerController gameManager;
     private float horizontal;
     private float vertical;
+    private bool didPressMate = false;
     private bool disableMovement = false;
 
     // Start is called before the first frame update
@@ -33,6 +35,7 @@ public class SnekController : MonoBehaviour
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        gameManager = FindObjectOfType<GameManagerController>();
     }
 
     // Update is called once per frame
@@ -42,34 +45,9 @@ public class SnekController : MonoBehaviour
 
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
+        didPressMate = Input.GetKey("space");
 
         UpdateSpriteFlip(horizontal);
-    }
-
-    private void UpdateSpriteFlip(float horizontalInput)
-    {
-        var isFlipped = spriteRenderer.flipX;
-
-        bool newFlipState;
-        if (isFlipped && horizontalInput > 0)
-        {
-            newFlipState = false;
-        }
-        else if (!isFlipped && horizontalInput < 0)
-        {
-            newFlipState = true;
-        }
-        else
-        {
-            return; // No update to flip state
-        }
-
-        spriteRenderer.flipX = newFlipState;
-        headSlotController.SetIsFlipped(newFlipState);
-        armsSlotController.SetIsFlipped(newFlipState);
-        upperBodySlotController.SetIsFlipped(newFlipState);
-        lowerBodySlotController.SetIsFlipped(newFlipState);
-        legsSlotController.SetIsFlipped(newFlipState);
     }
 
     void FixedUpdate()
@@ -105,6 +83,50 @@ public class SnekController : MonoBehaviour
         // TODO: Update stats based on the new trait?
     }
 
+    // Note: This is working because didPressMate is
+    // using GetKey over GetKeyDown. GetKeyDown will
+    // only be active for the frame it is pressed,
+    // and seems to be running after this callback.
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        var mate = collision.GetComponent<MateController>();
+        if (mate != null && didPressMate)
+        {
+            // TODO: Punnet square for new traits
+            gameManager.MateReset();
+        }
+
+        didPressMate = false;
+    }
+
+    private void UpdateSpriteFlip(float horizontalInput)
+    {
+        var isFlipped = spriteRenderer.flipX;
+
+        bool newFlipState;
+        if (isFlipped && horizontalInput > 0)
+        {
+            newFlipState = false;
+        }
+        else if (!isFlipped && horizontalInput < 0)
+        {
+            newFlipState = true;
+        }
+        else
+        {
+            return; // No update to flip state
+        }
+
+        spriteRenderer.flipX = newFlipState;
+        headSlotController.SetIsFlipped(newFlipState);
+        armsSlotController.SetIsFlipped(newFlipState);
+        upperBodySlotController.SetIsFlipped(newFlipState);
+        lowerBodySlotController.SetIsFlipped(newFlipState);
+        legsSlotController.SetIsFlipped(newFlipState);
+    }
+
+    #region Scene Resetting
+
     // Called by GameManagerController when the user finds a mate
     public void StartMating()
     {
@@ -122,4 +144,6 @@ public class SnekController : MonoBehaviour
     {
         disableMovement = false;
     }
+
+    #endregion
 }
