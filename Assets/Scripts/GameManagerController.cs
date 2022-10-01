@@ -17,6 +17,7 @@ public class GameManagerController : MonoBehaviour
     private List<GameObject> mates;
     private LerpCamera lerpCamera;
     private TimerUI timerUI;
+    private GameOverUI gameOverUI;
     private float timer = 10f;
     private bool isResetting = false;
     private bool gameOver = false;
@@ -26,6 +27,7 @@ public class GameManagerController : MonoBehaviour
         snek = FindObjectOfType<SnekController>();
         lerpCamera = FindObjectOfType<LerpCamera>();
         timerUI = FindObjectOfType<TimerUI>();
+        gameOverUI = FindObjectOfType<GameOverUI>();
         mates = new List<GameObject>();
 
         SpawnMates();
@@ -43,6 +45,7 @@ public class GameManagerController : MonoBehaviour
             UnityEngine.Debug.Log("bruh");
             gameOver = true;
             snek.KillSnek();
+            gameOverUI.setGameOverVisible(true);
         }
     }
 
