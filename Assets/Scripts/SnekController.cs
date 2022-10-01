@@ -7,15 +7,12 @@ using static Trait;
 
 public class SnekController : MonoBehaviour
 {
-    Rigidbody2D rigidbody2d;
-    float horizontal;
-    float vertical;
-    bool disableMovement = false;
-
-    Animator animator;
-
     // Trait Slots
-    public ArmsSlotController armsSlotController;
+    public TraitSlotController headSlotController;
+    public TraitSlotController armsSlotController;
+    public TraitSlotController upperBodySlotController;
+    public TraitSlotController lowerBodySlotController;
+    public TraitSlotController legsSlotController;
 
     // Stats
     public float speed = 3.0f;
@@ -24,11 +21,18 @@ public class SnekController : MonoBehaviour
     public int maxHealth = 10;
     public int currentHealth;
 
+    // Private members
+    private Rigidbody2D rigidbody2d;
+    private SpriteRenderer spriteRenderer;
+    private float horizontal;
+    private float vertical;
+    private bool disableMovement = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -39,7 +43,33 @@ public class SnekController : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
 
-        animator.SetFloat("X Look", horizontal);
+        UpdateSpriteFlip(horizontal);
+    }
+
+    private void UpdateSpriteFlip(float horizontalInput)
+    {
+        var isFlipped = spriteRenderer.flipX;
+
+        bool newFlipState;
+        if (isFlipped && horizontalInput > 0)
+        {
+            newFlipState = false;
+        }
+        else if (!isFlipped && horizontalInput < 0)
+        {
+            newFlipState = true;
+        }
+        else
+        {
+            return; // No update to flip state
+        }
+
+        spriteRenderer.flipX = newFlipState;
+        headSlotController.SetIsFlipped(newFlipState);
+        armsSlotController.SetIsFlipped(newFlipState);
+        upperBodySlotController.SetIsFlipped(newFlipState);
+        lowerBodySlotController.SetIsFlipped(newFlipState);
+        legsSlotController.SetIsFlipped(newFlipState);
     }
 
     void FixedUpdate()
@@ -55,12 +85,24 @@ public class SnekController : MonoBehaviour
     {
         switch (trait.type)
         {
+            case SlotType.Head:
+                headSlotController.SetTrait(trait);
+                break;
             case SlotType.Arms:
-                {
-                    armsSlotController.SetTrait(trait);
-                    break;
-                }
+                armsSlotController.SetTrait(trait);
+                break;
+            case SlotType.UpperBody:
+                upperBodySlotController.SetTrait(trait);
+                break;
+            case SlotType.LowerBody:
+                lowerBodySlotController.SetTrait(trait);
+                break;
+            case SlotType.Legs:
+                legsSlotController.SetTrait(trait);
+                break;
         }
+
+        // TODO: Update stats based on the new trait?
     }
 
     // Called by GameManagerController when the user finds a mate

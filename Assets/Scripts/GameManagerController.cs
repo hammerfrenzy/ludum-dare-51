@@ -53,6 +53,7 @@ public class GameManagerController : MonoBehaviour
         // Scale up & back down.
         // When finished, start the timer & give control back to player.
         // Two separate tweens because the Yoyo loop wasn't returning back to zero.
+        // Also allows us to do "mid mate" work.
 
         GameResetOverlay
             .transform
