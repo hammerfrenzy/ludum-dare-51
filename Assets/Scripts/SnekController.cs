@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,16 +9,19 @@ public class SnekController : MonoBehaviour
     float horizontal;
     float vertical;
 
-    float disableMovementTimer = 0.5f;
+    float disableMovementTimer = 0.2f;
     bool disableMovement = false;
 
+    GameManagerController gameManager;
 
-    // Traits
+    // Stats
     public float speed = 3.0f;
+
     // Start is called before the first frame update
     void Start()
     {
         rigidbody2d = GetComponent<Rigidbody2D>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManagerController>();
     }
 
     // Update is called once per frame
@@ -25,14 +29,13 @@ public class SnekController : MonoBehaviour
     {
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-
-        if(disableMovement)
+        if (disableMovement)
         {
             disableMovementTimer -= Time.deltaTime;
             if(disableMovementTimer < 0)
             {
                 disableMovement = false;
-                disableMovementTimer = 0.5f;
+                disableMovementTimer = 0.2f;
             }
         }
     }
