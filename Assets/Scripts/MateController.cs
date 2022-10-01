@@ -49,14 +49,33 @@ public class MateController : MonoBehaviour
         // (arm, leg, and upper body have an implement trait).
         // This will need to be improved once more traits are available.
 
+        var traitCount = 0;
+        var maxTraits = 4;
+        traitSlotControllers.Shuffle();
         foreach (var controller in traitSlotControllers)
         {
+            var traitChance = (1 - (traitCount / maxTraits)) / 1.25f;
+            var giveTrait = Random.Range(0f, 1f) < traitChance;
+            if (!giveTrait) return;
+
             // TODO: use the genotype from snek sometimes
             // TODO: If they're far away, give something good?
             var genotype = Genotype.Randomized();
             var phenotype = traitsBank.GetTrait(controller.slotType, genotype);
 
             SetTrait(controller.slotType, phenotype, genotype);
+            traitCount++;
+        }
+
+        // One last chance to be lucky with a trait
+        if (traitCount == 0 && Random.Range(0, 1f) > 0.3f)
+        {
+            var controller = traitSlotControllers[0];
+            var genotype = Genotype.Randomized();
+            var phenotype = traitsBank.GetTrait(controller.slotType, genotype);
+
+            SetTrait(controller.slotType, phenotype, genotype);
+            traitCount += 1;
         }
     }
 
