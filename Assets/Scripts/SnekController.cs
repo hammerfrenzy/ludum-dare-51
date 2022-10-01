@@ -1,4 +1,4 @@
-using DG.Tweening.Core.Easing;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -36,6 +36,24 @@ public class SnekController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         gameManager = FindObjectOfType<GameManagerController>();
+
+        StartCoroutine(RotateJankyForever());
+    }
+
+    private IEnumerator RotateJankyForever()
+    {
+        var moveRight = true;
+        var maxRotation = 3;
+        var zRotation = maxRotation;
+        while (true)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, zRotation);
+            if (zRotation == maxRotation) moveRight = false;
+            if (zRotation == -maxRotation) moveRight = true;
+            zRotation = moveRight ? zRotation + maxRotation : zRotation - maxRotation;
+
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     // Update is called once per frame
@@ -130,7 +148,7 @@ public class SnekController : MonoBehaviour
         // TODO: punnet square / more complicated random decision thing here in the future.
         // If you need to access the trait currently in the slotController: slotController.currentTrait.
         var coinFlip = Random.Range(0, 2);
-        if(coinFlip == 1)
+        if (coinFlip == 1)
         {
             slotController.SetTrait(potentialTrait);
         }
