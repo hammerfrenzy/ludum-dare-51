@@ -33,13 +33,12 @@ public class MateController : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        UnityEngine.Debug.Log(collision);
         SnekController snek = collision.GetComponent<SnekController>();
         if (mateButton && snek != null)
         {
             // Display Mate Prompt
             UnityEngine.Debug.Log("mate");
-            gameManager.mateReset();
+            gameManager.MateReset();
         }
     }
 }

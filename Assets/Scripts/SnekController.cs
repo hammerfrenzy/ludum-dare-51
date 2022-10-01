@@ -1,6 +1,7 @@
 using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class SnekController : MonoBehaviour
@@ -13,6 +14,7 @@ public class SnekController : MonoBehaviour
     bool disableMovement = false;
 
     Animator animator;
+    List<Trait> traits;
     // Stats
     public float speed = 3.0f;
 
@@ -21,6 +23,10 @@ public class SnekController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
+
+        Trait beefyArm = (Trait)AssetDatabase.LoadAssetAtPath("Assets/Sprites/Traits/Beefy Arm.asset", typeof(Trait));
+        traits.Add(beefyArm);
+        UnityEngine.Debug.Log(beefyArm.type);
     }
 
     // Update is called once per frame
@@ -31,10 +37,11 @@ public class SnekController : MonoBehaviour
 
         animator.SetFloat("X Look", horizontal);
 
+        // Stops snake from moving while potential mate animation plays???
         if (disableMovement)
         {
             disableMovementTimer -= Time.deltaTime;
-            if(disableMovementTimer < 0)
+            if (disableMovementTimer < 0)
             {
                 disableMovement = false;
                 disableMovementTimer = 0.2f;
@@ -51,10 +58,18 @@ public class SnekController : MonoBehaviour
         rigidbody2d.MovePosition(position);
     }
 
-    public void resetSnek()
+    public void ResetSnek()
     {
         disableMovement = true;
         Vector2 position = new Vector2(0, 0);
         rigidbody2d.MovePosition(position);
+    }
+
+    public void RenderTraits()
+    {
+        foreach(var trait in traits)
+        {
+
+        }
     }
 }
