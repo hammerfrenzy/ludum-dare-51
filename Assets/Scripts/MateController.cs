@@ -17,8 +17,6 @@ public class MateController : MonoBehaviour
 
     public List<TraitSlotController> traitSlotControllers;
 
-    private Tween wanderTween;
-
     public void GetComponentsDuringSpawn()
     {
         traitsBank = FindObjectOfType<TraitsBankController>();
@@ -34,8 +32,6 @@ public class MateController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        WanderAround();
-
         // One-time setup for sprite flipping
         headSlotController.SetIsFlipped(true);
         armsSlotController.SetIsFlipped(true);
@@ -44,6 +40,7 @@ public class MateController : MonoBehaviour
         legsSlotController.SetIsFlipped(true);
 
         StartCoroutine(RotateJankyForever());
+        StartCoroutine(WanderForever());
     }
 
     public void AddTraitsPreferring(SnekController snekController)
@@ -88,19 +85,25 @@ public class MateController : MonoBehaviour
     // Moves the object to a random point up to 
     // one unit circle distance away, and then
     // starts toward a new target upon completion.  
-    private void WanderAround()
+    private IEnumerator WanderForever()
     {
-        wanderTween?.Kill();
-
         var targetPosition = transform.position + (Vector3)Random.insideUnitCircle;
-
-        wanderTween = transform
+        var finishedWander = false;
+        var tween = transform
             .DOMove(targetPosition, 2f)
             .SetDelay(Random.Range(0, 0.5f))
             .OnComplete(() =>
             {
-                WanderAround();
+                finishedWander = true;
             });
+
+        while (!finishedWander)
+        {
+            yield return null;
+        }
+
+        tween.Kill();
+        StartCoroutine(WanderForever());
     }
 
     private void UpdateSpriteFlip(float horizontalInput)
