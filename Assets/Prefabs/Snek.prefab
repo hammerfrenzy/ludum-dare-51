@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c7a844f1021644da3d73a643e5f786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotType: 2
+  currentTrait: {fileID: 0}
 --- !u!1 &724069536257802634
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,6 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c7a844f1021644da3d73a643e5f786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotType: 1
+  currentTrait: {fileID: 0}
 --- !u!1 &845820486914912523
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c7a844f1021644da3d73a643e5f786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotType: 0
+  currentTrait: {fileID: 0}
 --- !u!1 &4435906643382546642
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,6 +478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c7a844f1021644da3d73a643e5f786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotType: 4
+  currentTrait: {fileID: 0}
 --- !u!1 &6035714502739598748
 GameObject:
   m_ObjectHideFlags: 0
@@ -511,7 +519,7 @@ Transform:
   - {fileID: 8286968606641107800}
   - {fileID: 1700118770376869368}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &6035714502739598747
 SpriteRenderer:
@@ -772,3 +780,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1c7a844f1021644da3d73a643e5f786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  slotType: 3
+  currentTrait: {fileID: 0}

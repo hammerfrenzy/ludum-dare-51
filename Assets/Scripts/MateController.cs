@@ -15,6 +15,8 @@ public class MateController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
 
     public List<Trait> traits;
+    public List<TraitSlotController> traitSlotControllers;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,12 @@ public class MateController : MonoBehaviour
         upperBodySlotController.SetIsFlipped(true);
         lowerBodySlotController.SetIsFlipped(true);
         legsSlotController.SetIsFlipped(true);
+
+        traitSlotControllers.Add(headSlotController);
+        traitSlotControllers.Add(armsSlotController);
+        traitSlotControllers.Add(upperBodySlotController);
+        traitSlotControllers.Add(lowerBodySlotController);
+        traitSlotControllers.Add(legsSlotController);
     }
 
     private void AddTraits()
@@ -65,18 +73,23 @@ public class MateController : MonoBehaviour
         {
             case Trait.SlotType.Head:
                 headSlotController.SetTrait(trait);
+                UnityEngine.Debug.Log(headSlotController.currentTrait);
                 break;
             case Trait.SlotType.Arms:
                 armsSlotController.SetTrait(trait);
+                UnityEngine.Debug.Log(armsSlotController.currentTrait);
                 break;
             case Trait.SlotType.UpperBody:
                 upperBodySlotController.SetTrait(trait);
+                UnityEngine.Debug.Log(upperBodySlotController.currentTrait);
                 break;
             case Trait.SlotType.LowerBody:
                 lowerBodySlotController.SetTrait(trait);
+                UnityEngine.Debug.Log(lowerBodySlotController.currentTrait);
                 break;
             case Trait.SlotType.Legs:
                 legsSlotController.SetTrait(trait);
+                UnityEngine.Debug.Log(legsSlotController.currentTrait);
                 break;
         }
     }

@@ -59,27 +59,29 @@ public class SnekController : MonoBehaviour
         rigidbody2d.MovePosition(position);
     }
 
-    public void SetTrait(Trait trait)
+    public void SetTrait(TraitSlotController slot)
     {
-        switch (trait.type)
+        Trait potentialTrait = slot.currentTrait;
+        UnityEngine.Debug.Log(slot.slotType);
+        UnityEngine.Debug.Log(potentialTrait);
+        switch (slot.slotType)
         {
             case SlotType.Head:
-                DecideTrait(headSlotController, trait);
+                DecideTrait(headSlotController, potentialTrait);
                 break;
             case SlotType.Arms:
-                DecideTrait(armsSlotController, trait);
+                DecideTrait(armsSlotController, potentialTrait);
                 break;
             case SlotType.UpperBody:
-                DecideTrait(upperBodySlotController, trait);
+                DecideTrait(upperBodySlotController, potentialTrait);
                 break;
             case SlotType.LowerBody:
-                DecideTrait(lowerBodySlotController, trait);
+                DecideTrait(lowerBodySlotController, potentialTrait);
                 break;
             case SlotType.Legs:
-                DecideTrait(legsSlotController, trait);
+                DecideTrait(legsSlotController, potentialTrait);
                 break;
         }
-
         // TODO: Update stats based on the new trait?
     }
 
@@ -90,9 +92,10 @@ public class SnekController : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         var mate = collision.GetComponent<MateController>();
+
         if (mate != null && didPressMate)
         {
-            Metaphase(mate.traits);
+            Metaphase(mate);
             gameManager.MateReset();
         }
 
@@ -125,26 +128,24 @@ public class SnekController : MonoBehaviour
         legsSlotController.SetIsFlipped(newFlipState);
     }
 
+    private void Metaphase(MateController mate)
+    {
+        foreach(var slot in mate.traitSlotControllers)
+        {
+            SetTrait(slot);
+        }
+    }
+
     private void DecideTrait(TraitSlotController slotController, Trait potentialTrait)
     {
         // TODO: punnet square / more complicated random decision thing here in the future.
         // If you need to access the trait currently in the slotController: slotController.currentTrait.
         var coinFlip = Random.Range(0, 2);
-        if(coinFlip == 1)
+        if (coinFlip == 1)
         {
             slotController.SetTrait(potentialTrait);
         }
     }
-
-    private void Metaphase(IList<Trait> mateTraits)
-    {
-        foreach (var mateTrait in mateTraits)
-        {
-            SetTrait(mateTrait);
-        }
-    }
-
-
     #region Scene Resetting
 
     // Called by GameManagerController when the user finds a mate
