@@ -9,4 +9,9 @@ public class TraitsBankController : MonoBehaviour
     public List<Trait> upperBodyTraits;
     public List<Trait> lowerBodyTraits;
     public List<Trait> legsTraits;
+
+    public Trait getRandomArm()
+    {
+        return armTraits[Random.Range(0, armTraits.Count)];
+    }
 }

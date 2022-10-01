@@ -16,7 +16,7 @@ public class Trait : ScriptableObject
 
     public new string name;
     public Sprite image;
-    public Animator animator;
+    public RuntimeAnimatorController animator;
     public Vector2 offset;
     public int speedModifier;
     public int attractivenessModifier;

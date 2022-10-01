@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Beefy Arm
   image: {fileID: 21300000, guid: 66d21c74c71e2f4469086d0efaf2432f, type: 3}
-  animator: {fileID: 0}
-  position: {x: 0, y: 0}
+  animator: {fileID: 9100000, guid: 57e01ffad8954dd4d9fdcaba3b43a926, type: 2}
+  offset: {x: 0, y: 0}
   speedModifier: 0
   attractivenessModifier: 0
   intimidationModifier: 0
   healthModifier: 0
   probability: 0
-  type: 2
+  type: 1
