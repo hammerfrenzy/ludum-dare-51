@@ -125,13 +125,14 @@ public class SnekController : MonoBehaviour
         legsSlotController.SetIsFlipped(newFlipState);
     }
 
-    private void DecideTrait(TraitSlotController slotController, Trait trait)
+    private void DecideTrait(TraitSlotController slotController, Trait potentialTrait)
     {
-        // TODO: punnet square / more complicated random decision thing.
+        // TODO: punnet square / more complicated random decision thing here in the future.
+        // If you need to access the trait currently in the slotController: slotController.currentTrait.
         var coinFlip = Random.Range(0, 2);
         if(coinFlip == 1)
         {
-            slotController.SetTrait(trait);
+            slotController.SetTrait(potentialTrait);
         }
     }
 
