@@ -15,14 +15,14 @@ public class MateController : MonoBehaviour
     private TraitsBankController traitsBank;
     private SpriteRenderer spriteRenderer;
 
-    public List<Trait> traits;
     public List<TraitSlotController> traitSlotControllers;
+
+    private Tween wanderTween;
 
     public void GetComponentsDuringSpawn()
     {
         traitsBank = FindObjectOfType<TraitsBankController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        Debug.Log($"trait bank: {traitsBank}, renderer: {spriteRenderer}");
     }
 
     // Start is called before the first frame update
@@ -52,49 +52,39 @@ public class MateController : MonoBehaviour
         // (arm, leg, and upper body have an implement trait).
         // This will need to be improved once more traits are available.
 
-        var traitRoll = Random.Range(0, 3);
-        if (traitRoll == 0)
+        foreach (var controller in traitSlotControllers)
         {
-            var armTrait = traitsBank.GetRandomArm();
-            traits.Add(armTrait);
-            SetTrait(armTrait);
-        }
-        else if (traitRoll == 1)
-        {
-            var legTrait = traitsBank.GetRandomLegs();
-            traits.Add(legTrait);
-            SetTrait(legTrait);
-        }
-        else if (traitRoll == 2)
-        {
-            var upperBodyTrait = traitsBank.GetRandomUpperBody();
-            traits.Add(upperBodyTrait);
-            SetTrait(upperBodyTrait);
+            // TODO: use the genotype from snek sometimes
+            // TODO: If they're far away, give something good?
+            var genotype = Genotype.Randomized();
+            var phenotype = traitsBank.GetTrait(controller.slotType, genotype);
+
+            SetTrait(controller.slotType, phenotype, genotype);
         }
     }
 
-    private void SetTrait(Trait trait)
+    private void SetTrait(Trait.SlotType traitSlot, Trait phenotype, Genotype genotype)
     {
-        switch (trait.type)
+        switch (traitSlot)
         {
             case Trait.SlotType.Head:
-                headSlotController.SetTrait(trait);
+                headSlotController.SetTrait(phenotype, Genotype.Randomized());
                 UnityEngine.Debug.Log(headSlotController.currentTrait);
                 break;
             case Trait.SlotType.Arms:
-                armsSlotController.SetTrait(trait);
+                armsSlotController.SetTrait(phenotype, Genotype.Randomized());
                 UnityEngine.Debug.Log(armsSlotController.currentTrait);
                 break;
             case Trait.SlotType.UpperBody:
-                upperBodySlotController.SetTrait(trait);
+                upperBodySlotController.SetTrait(phenotype, Genotype.Randomized());
                 UnityEngine.Debug.Log(upperBodySlotController.currentTrait);
                 break;
             case Trait.SlotType.LowerBody:
-                lowerBodySlotController.SetTrait(trait);
+                lowerBodySlotController.SetTrait(phenotype, Genotype.Randomized());
                 UnityEngine.Debug.Log(lowerBodySlotController.currentTrait);
                 break;
             case Trait.SlotType.Legs:
-                legsSlotController.SetTrait(trait);
+                legsSlotController.SetTrait(phenotype, Genotype.Randomized());
                 UnityEngine.Debug.Log(legsSlotController.currentTrait);
                 break;
         }
@@ -105,8 +95,11 @@ public class MateController : MonoBehaviour
     // starts toward a new target upon completion.  
     private void WanderAround()
     {
+        wanderTween?.Kill();
+
         var targetPosition = transform.position + (Vector3)Random.insideUnitCircle;
-        transform
+
+        wanderTween = transform
             .DOMove(targetPosition, 2f)
             .SetDelay(Random.Range(0, 0.5f))
             .OnComplete(() =>

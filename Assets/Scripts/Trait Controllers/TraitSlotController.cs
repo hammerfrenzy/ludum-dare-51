@@ -11,6 +11,7 @@ public class TraitSlotController : MonoBehaviour
     private Animator animator;
     public Trait.SlotType slotType;
     public Trait currentTrait;
+    public Genotype genotype;
 
     void Awake()
     {
@@ -18,7 +19,7 @@ public class TraitSlotController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void SetTrait(Trait trait)
+    public void SetTrait(Trait trait, Genotype genotype)
     {
         currentTrait = trait;
 
@@ -31,6 +32,8 @@ public class TraitSlotController : MonoBehaviour
 
         spriteRenderer.sprite = trait.image;
         animator.runtimeAnimatorController = trait.animator;
+
+        this.genotype = genotype;
     }
 
     public void SetIsFlipped(bool isFlipped)
