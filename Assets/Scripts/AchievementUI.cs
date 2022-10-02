@@ -90,11 +90,6 @@ public class AchievementUI : MonoBehaviour
         }
     }
 
-    void Start()
-    {
-        
-    }
-
     public void UpdateAchievements()
     {
         foreach(var tupleThing in AchievementsTracker.tupleList)
@@ -122,6 +117,7 @@ public class AchievementUI : MonoBehaviour
 
     private void SetAchievementIcon(List<AchievementSlot> slots, Phenotype phenotype)
     {
+        Debug.Log($"Setting {phenotype.ToString()}");
         switch(phenotype)
         {
             case Phenotype.Purple:
