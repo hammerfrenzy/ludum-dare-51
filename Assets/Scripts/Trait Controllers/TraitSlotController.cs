@@ -40,4 +40,10 @@ public class TraitSlotController : MonoBehaviour
     {
         spriteRenderer.flipX = isFlipped;
     }
+
+    public bool HasTrait()
+    {
+        var phenotype = genotype.GetPhenotype();
+        return phenotype != Phenotype.Orange;
+    }
 }
