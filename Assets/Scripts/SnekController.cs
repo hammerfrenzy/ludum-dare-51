@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -144,6 +145,11 @@ public class SnekController : MonoBehaviour
         bruh.Invoke();
     }
 
+    public void SendToWinScreenBox()
+    {
+        transform.position = new Vector3(7f, 2.5f, 0f);
+    }
+
     // Note: This is working because didPressMate is
     // using GetKey over GetKeyDown. GetKeyDown will
     // only be active for the frame it is pressed,
@@ -210,7 +216,7 @@ public class SnekController : MonoBehaviour
     #region Scene Resetting
 
     // Called by GameManagerController when the user finds a mate
-    public void StartMating()
+    public void DisableMovement()
     {
         disableMovement = true;
     }
@@ -229,5 +235,14 @@ public class SnekController : MonoBehaviour
         disableMovement = false;
     }
 
+    public bool CheckWinCondition()
+    {
+        // Check if any slots do not have traits
+        if (TraitControllers.Any(slot => !slot.HasTrait()))
+        {
+            return false;
+        }
+        return true;
+    }
     #endregion
 }

@@ -7,6 +7,7 @@ public class LerpCamera : MonoBehaviour
     private Transform cameraTarget;
     private float speed = 5f;
     private float cameraZ = -10f;
+    public bool disableCameraMovement = false;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,8 @@ public class LerpCamera : MonoBehaviour
     // FixedUpdate for camera lerping
     void FixedUpdate()
     {
+        if (disableCameraMovement) return;
+
         var newPosition = Vector2.Lerp(
             (Vector2)transform.position,
             (Vector2)cameraTarget.position,
