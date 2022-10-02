@@ -41,6 +41,7 @@ public class SnekController : MonoBehaviour
 
     // Stats
     public float speed = 3.0f;
+    private float speedFromTraits = 0f;
     public float attractiveness = 1.0f;
     public float intimidation = 1.0f;
     public int maxHealth = 10;
@@ -119,14 +120,14 @@ public class SnekController : MonoBehaviour
     {
         if (disableMovement) return;
         Vector2 position = rigidbody2d.position;
-        position.x += speed * horizontal * Time.deltaTime;
-        position.y += speed * vertical * Time.deltaTime;
+        var finalSpeed = speed + speedFromTraits;
+        position.x += finalSpeed * horizontal * Time.deltaTime;
+        position.y += finalSpeed * vertical * Time.deltaTime;
         rigidbody2d.MovePosition(position);
     }
 
     public void SetTrait(TraitSlotController mateTraitController)
     {
-
         Tuple<Genotype, Trait> crossResult;
         TraitSlotController controller;
         switch (mateTraitController.slotType)
@@ -161,6 +162,9 @@ public class SnekController : MonoBehaviour
         controller.ApplyCrossResults(genotype, phenotype);
         genotypeUI.UpdateGenetics(mateTraitController.slotType, genotype, phenotype);
 
+        var phenotypeColor = genotype.GetPhenotype();
+        speedFromTraits += phenotypeColor != Phenotype.Orange ? 0.5f : 0f;
+
         // TODO: Update stats based on the new trait?
     }
 
@@ -168,6 +172,7 @@ public class SnekController : MonoBehaviour
     {
         animator.SetTrigger("DeathTrigger");
         disableMovement = true;
+        speedFromTraits = 0;
     }
 
     public void DisplayGameOver()
@@ -229,6 +234,7 @@ public class SnekController : MonoBehaviour
 
     private void Metaphase(MateController mate)
     {
+        speedFromTraits = 0;
         foreach (var mateTraitController in mate.traitSlotControllers)
         {
             SetTrait(mateTraitController);
