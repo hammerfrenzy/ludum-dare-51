@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using static Trait;
@@ -11,6 +12,21 @@ public class SnekController : MonoBehaviour
     public TraitSlotController upperBodySlotController;
     public TraitSlotController lowerBodySlotController;
     public TraitSlotController legsSlotController;
+
+    public List<TraitSlotController> TraitControllers
+    {
+        get
+        {
+            return new List<TraitSlotController>()
+             {
+                headSlotController,
+                armsSlotController,
+                upperBodySlotController,
+                lowerBodySlotController,
+                legsSlotController
+            };
+        }
+    }
 
     // Editor Hookups
     public DeathAnimController deathAnim;
@@ -38,7 +54,6 @@ public class SnekController : MonoBehaviour
     private float vertical;
     private bool didPressMate = false;
     private bool disableMovement = false;
-
 
     // Start is called before the first frame update
     void Start()
