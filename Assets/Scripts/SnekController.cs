@@ -34,6 +34,7 @@ public class SnekController : MonoBehaviour
     public AudioClip deathScribble;
     public AudioClip eggTear;
     public AudioClip heartBreak;
+    public AudioClip snekSnek;
     public GenotypeUIController genotypeUI;
 
     // Stats
@@ -173,6 +174,7 @@ public class SnekController : MonoBehaviour
         {
             animator.SetTrigger("MateTrigger");
             gameManager.MateReset();
+            PlaySnekSnek();
         }
 
         didPressMate = false;
@@ -289,6 +291,11 @@ public class SnekController : MonoBehaviour
     public void PlayHeartbreakSound()
     {
         audioSource2.PlayOneShot(heartBreak, 0.5f);
+    }
+
+    public void PlaySnekSnek()
+    {
+        audioSource2.PlayOneShot(snekSnek, 0.5f);
     }
 
     public void PlayHatchSound()
