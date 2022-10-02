@@ -7,7 +7,7 @@ public class TimerUI : MonoBehaviour
 {
     private CanvasGroup timerGroup;
     private Image countdownFiller;
-    private float fullBarWidth = 750f;
+    private float fullBarWidth = 735f;
 
     void Start()
     {

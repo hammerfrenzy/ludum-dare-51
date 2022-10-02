@@ -17,27 +17,40 @@ public class GenotypeUIController : MonoBehaviour
     public Image LowerBodyPhenotypeImage;
     public Image LegsPhenotypeImage;
 
+    private TraitsBankController traitBank;
+
+    public void Start()
+    {
+        traitBank = FindObjectOfType<TraitsBankController>();
+    }
+
     public void SetGenotype(Trait.SlotType slot, Genotype genotype)
     {
-        var phenotype = genotype.GetPhenotype();
-
+        var phenotype = traitBank.GetTrait(slot, genotype);
         switch (slot)
         {
             case Trait.SlotType.Head:
-                HeadGenotypeUI.SetGenotype(genotype);
+                UpdateUI(genotype, phenotype, HeadGenotypeUI, HeadPhenotypeImage);
                 break;
             case Trait.SlotType.Arms:
-                ArmsGenotypeUI.SetGenotype(genotype);
+                UpdateUI(genotype, phenotype, ArmsGenotypeUI, ArmsPhenotypeImage);
                 break;
             case Trait.SlotType.UpperBody:
-                UpperBodyGenotypeUI.SetGenotype(genotype);
+                UpdateUI(genotype, phenotype, UpperBodyGenotypeUI, UpperBodyPhenotypeImage);
                 break;
             case Trait.SlotType.LowerBody:
-                LowerBodyGenotypeUI.SetGenotype(genotype);
+                UpdateUI(genotype, phenotype, LowerBodyGenotypeUI, LowerBodyPhenotypeImage);
                 break;
             case Trait.SlotType.Legs:
-                LegsGenotypeUI.SetGenotype(genotype);
+                UpdateUI(genotype, phenotype, LegsGenotypeUI, LegsPhenotypeImage);
                 break;
         }
+    }
+
+    private void UpdateUI(Genotype genotype, Trait phenotype, GenotypeUI genotypeUI, Image phenotypeUI)
+    {
+        genotypeUI.SetGenotype(genotype);
+        phenotypeUI.sprite = phenotype.image;
+        phenotypeUI.color = phenotype.image == null ? Color.clear : Color.white;
     }
 }
