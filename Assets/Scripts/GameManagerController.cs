@@ -18,7 +18,7 @@ public class GameManagerController : MonoBehaviour
     private List<GameObject> mates;
     private LerpCamera lerpCamera;
     private TimerUI timerUI;
-    private GameOverUI gameOverUI;
+    private WinScreenUI winScreenUI;
     private float timer = 10f;
     private bool isResetting = false;
     private bool gameOver = false;
@@ -33,7 +33,7 @@ public class GameManagerController : MonoBehaviour
         snek = FindObjectOfType<SnekController>();
         lerpCamera = FindObjectOfType<LerpCamera>();
         timerUI = FindObjectOfType<TimerUI>();
-        gameOverUI = FindObjectOfType<GameOverUI>();
+        winScreenUI = FindObjectOfType<WinScreenUI>();
         mates = new List<GameObject>();
 
         SpawnMates();
@@ -65,7 +65,7 @@ public class GameManagerController : MonoBehaviour
         GameResetOverlay.transform.position = new Vector3(heartPosition.x, heartPosition.y, 0);
         timerUI.SetHidden(true);
 
-        snek.StartMating();
+        snek.DisableMovement();
 
         // Scale up & back down.
         // When finished, start the timer & give control back to player.
@@ -102,9 +102,21 @@ public class GameManagerController : MonoBehaviour
         .OnComplete(() =>
         {
             snek.EndMating();
-            timer = 10f;
-            timerUI.SetHidden(false);
-            isResetting = false;
+            if(snek.CheckWinCondition())
+            {
+                gameOver = true;
+                winScreenUI.setWinScreenVisible(true);
+
+                lerpCamera.disableCameraMovement = true;
+                snek.DisableMovement();
+                snek.SendToWinScreenBox();
+            }
+            else
+            {
+                timer = 10f;
+                timerUI.SetHidden(false);
+                isResetting = false;
+            }
         });
     }
 
