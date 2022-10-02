@@ -104,7 +104,7 @@ public class GameManagerController : MonoBehaviour
             if(snek.CheckWinCondition())
             {
                 gameOver = true;
-                winScreenUI.setWinScreenVisible(true);
+                winScreenUI.setWinScreenVisible(true, snek.GetPrimaryPhenotype());
 
                 lerpCamera.disableCameraMovement = true;
                 snek.DisableMovement();

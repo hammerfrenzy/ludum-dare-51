@@ -255,6 +255,26 @@ public class SnekController : MonoBehaviour
         }
         return true;
     }
+
+    public Phenotype GetPrimaryPhenotype()
+    {
+        if(TraitControllers.All(slot => slot.genotype.GetPhenotype() == Phenotype.Blue))
+        {
+            return Phenotype.Blue;
+        }
+        else if (TraitControllers.All(slot => slot.genotype.GetPhenotype() == Phenotype.Purple))
+        {
+            return Phenotype.Purple;
+        }
+        else if (TraitControllers.All(slot => slot.genotype.GetPhenotype() == Phenotype.Green))
+        {
+            return Phenotype.Green;
+        }
+        else
+        {
+            return Phenotype.Orange;
+        }
+    }
     #endregion
 
 
