@@ -1,9 +1,11 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AchievementUI : MonoBehaviour
 {
+    #region Bruh
     // Start is called before the first frame update
     public AchievementSlot headCyborg;
     public AchievementSlot headSea;
@@ -87,6 +89,26 @@ public class AchievementUI : MonoBehaviour
                 legsSea,
                 legsTrogdor
             };
+        }
+    }
+    #endregion
+
+    public bool visible;
+    private RectTransform rectTransform;
+    private void Start()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            rectTransform.DOAnchorPosX(32, 0.5f);
+        }
+        if (Input.GetKeyUp(KeyCode.Tab) || Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            rectTransform.DOAnchorPosX(-600, 0.5f);
         }
     }
 
