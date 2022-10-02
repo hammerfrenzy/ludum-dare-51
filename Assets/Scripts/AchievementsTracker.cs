@@ -12,7 +12,6 @@ public static class AchievementsTracker
         var potentialTuple = Tuple.Create(slot, newGenotype.GetPhenotype());
         if (!tupleList.Contains(potentialTuple))
         {
-            Debug.Log($"Adding {slot} {newGenotype} to achievements");
             tupleList.Add(potentialTuple);
         }
     }
