@@ -1,13 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-public class NoButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class NoButton : MonoBehaviour
 {
+
     private bool mouse_over = false;
     CanvasGroup canvasGroup;
+
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
@@ -18,25 +22,27 @@ public class NoButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if (mouse_over)
         {
-            canvasGroup.alpha = 1.0f;
-            if (Input.GetMouseButtonDown(0))
-            {
-                SceneManager.LoadScene("MainMenu");
-            }
+            canvasGroup.alpha = 1;
         }
         else
         {
-            canvasGroup.alpha = 0.0f;
+            canvasGroup.alpha = 0;
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    void OnMouseOver()
     {
         mouse_over = true;
+        if (Input.GetMouseButtonDown(0))
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    void OnMouseExit()
     {
         mouse_over = false;
     }
+
 }
+

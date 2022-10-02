@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class YesButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class YesButton : MonoBehaviour
 {
 
     private bool mouse_over = false;
@@ -21,25 +22,26 @@ public class YesButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     {
         if (mouse_over)
         {
-            canvasGroup.alpha = 1.0f;
-            if(Input.GetMouseButtonDown(0))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
+            canvasGroup.alpha = 1;
         }
         else
         {
-            canvasGroup.alpha = 0.0f;
+            canvasGroup.alpha = 0;
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    void OnMouseOver()
     {
         mouse_over = true;
+        if (Input.GetMouseButtonDown(0))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    void OnMouseExit()
     {
         mouse_over = false;
     }
+
 }
