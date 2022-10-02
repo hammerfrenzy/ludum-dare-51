@@ -50,12 +50,8 @@ public class MateController : MonoBehaviour
         wanderTween?.Kill();
     }
 
-    public void AddTraitsPreferring(SnekController snekController)
+    public void AddTraitsPreferring(SnekController snekController, int ringNumber)
     {
-        // For now, choose a random trait from available options
-        // (arm, leg, and upper body have an implement trait).
-        // This will need to be improved once more traits are available.
-
         var traitCount = 0;
         var maxTraits = 4;
         traitSlotControllers.Shuffle();
@@ -65,8 +61,7 @@ public class MateController : MonoBehaviour
             var giveTrait = Random.Range(0f, 1f) < traitChance;
             if (!giveTrait) return;
 
-            // TODO: If they're far away, give something good?
-            var genotype = ChooseGenotypeV2(snekController, controller.slotType);
+            var genotype = ChooseGenotypeV2(snekController, controller.slotType, ringNumber);
             var phenotype = traitsBank.GetTrait(controller.slotType, genotype);
 
             SetTrait(controller.slotType, phenotype, genotype);
@@ -90,9 +85,11 @@ public class MateController : MonoBehaviour
         return Genotype.Randomized();
     }
 
-    private Genotype ChooseGenotypeV2(SnekController snekController, Trait.SlotType slot)
+    private Genotype ChooseGenotypeV2(SnekController snekController, Trait.SlotType slot, int ringNumber)
     {
-        float useSnekGenotypePercent = 0.3f;
+        // Start with a 50% chance to share a trait,
+        // reduced by 10% per ring level 
+        float useSnekGenotypePercent = 0.5f - (ringNumber * 0.1f);
         var roll = Random.Range(0f, 1f);
         if (roll > useSnekGenotypePercent) return ChooseGenotypeV1();
 

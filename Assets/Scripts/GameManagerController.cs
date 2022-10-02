@@ -158,7 +158,7 @@ public class GameManagerController : MonoBehaviour
                 // - Assign Traits
                 var mate = mateObject.GetComponent<MateController>();
                 mate.GetComponentsDuringSpawn();
-                mate.AddTraitsPreferring(snek);
+                mate.AddTraitsPreferring(snek, i);
             }
         }
     }
