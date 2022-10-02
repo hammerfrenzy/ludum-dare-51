@@ -87,6 +87,7 @@ public class GameManagerController : MonoBehaviour
                 // Move overlay so that it shrinks to new snek position
                 GameResetOverlay.transform.position = snek.transform.position;
 
+                RemoveMates();
                 SpawnMates();
                 ShrinkOverlay();
             });
@@ -109,8 +110,6 @@ public class GameManagerController : MonoBehaviour
 
     private void SpawnMates()
     {
-        RemoveMates();
-
         var totalSpawnRings = 6;
         var ringSpacing = 8;
         var startMates = 1;
@@ -143,6 +142,8 @@ public class GameManagerController : MonoBehaviour
                     Quaternion.identity,
                     transform);
 
+                mates.Add(mateObject);
+
                 // - Assign Traits
                 var mate = mateObject.GetComponent<MateController>();
                 mate.GetComponentsDuringSpawn();
@@ -153,9 +154,10 @@ public class GameManagerController : MonoBehaviour
 
     private void RemoveMates()
     {
+        Debug.Log("Time to delete some mates");
         foreach (var mate in mates)
         {
-            Destroy(mate);
+            Destroy(mate.gameObject);
         }
 
         mates.Clear();

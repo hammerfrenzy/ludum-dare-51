@@ -126,7 +126,7 @@ public class SnekController : MonoBehaviour
                 break;
         }
 
-        Debug.Log($"Rolled a new genotype for {mateTraitController.slotType}: {genotype.ToString()}");
+        // Debug.Log($"Rolled a new genotype for {mateTraitController.slotType}: {genotype.ToString()}");
 
         genotypeUI.SetGenotype(mateTraitController.slotType, genotype.Value);
 
