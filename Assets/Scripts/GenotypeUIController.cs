@@ -50,7 +50,7 @@ public class GenotypeUIController : MonoBehaviour
     private void UpdateUI(Genotype genotype, Trait phenotype, GenotypeUI genotypeUI, Image phenotypeUI)
     {
         genotypeUI.SetGenotype(genotype);
-        phenotypeUI.sprite = phenotype.image;
-        phenotypeUI.color = phenotype.image == null ? Color.clear : Color.white;
+        phenotypeUI.sprite = phenotype.phenotypeImage;
+        phenotypeUI.color = phenotype.phenotypeImage == null ? Color.clear : Color.white;
     }
 }
