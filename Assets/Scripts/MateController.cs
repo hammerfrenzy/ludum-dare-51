@@ -53,6 +53,7 @@ public class MateController : MonoBehaviour
     public void AddTraitsPreferring(SnekController snekController, int ringNumber)
     {
         var traitCount = 0;
+        var maxTraits = 4;
         traitSlotControllers.Shuffle();
 
         foreach (var controller in traitSlotControllers)
@@ -65,21 +66,14 @@ public class MateController : MonoBehaviour
             var phenotype = traitsBank.GetTrait(controller.slotType, genotype);
 
             SetTrait(controller.slotType, phenotype, genotype);
-            traitCount++;
+
+            if (genotype.GetPhenotype() != Phenotype.Orange)
+            {
+                traitCount++;
+            }
 
             // farther rings have more traits
-            if (traitCount > ringNumber) break;
-        }
-
-        // One last chance to be lucky with a trait
-        if (traitCount == 0 && Random.Range(0, 1f) > 0.3f)
-        {
-            var controller = traitSlotControllers[0];
-            var genotype = Genotype.Randomized();
-            var phenotype = traitsBank.GetTrait(controller.slotType, genotype);
-
-            SetTrait(controller.slotType, phenotype, genotype);
-            traitCount += 1;
+            if (traitCount > ringNumber || traitCount == maxTraits) break;
         }
     }
 
