@@ -122,7 +122,7 @@ public class GameManagerController : MonoBehaviour
     private void SpawnMates()
     {
         var totalSpawnRings = 6;
-        var ringSpacing = 8;
+        var ringSpacing = 7;
         var startMates = 1;
         var radialRandomness = Mathf.PI / 8;
 
