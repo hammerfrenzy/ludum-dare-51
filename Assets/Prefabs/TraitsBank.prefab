@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1007184532217234950
 MonoBehaviour:
@@ -52,17 +52,17 @@ MonoBehaviour:
   armTraits:
   - {fileID: 11400000, guid: c439e96870c559d44bb798bed8491dba, type: 2}
   - {fileID: 11400000, guid: acd5ebe358ae5e244b321021bbf2da47, type: 2}
-  - {fileID: 11400000, guid: acd5ebe358ae5e244b321021bbf2da47, type: 2}
+  - {fileID: 11400000, guid: 059cf4b9e34f89c4689536097d23ae38, type: 2}
   - {fileID: 11400000, guid: acd5ebe358ae5e244b321021bbf2da47, type: 2}
   upperBodyTraits:
   - {fileID: 11400000, guid: b033e0250718f284a8481523406fcb36, type: 2}
   - {fileID: 11400000, guid: 73a9fef2a9ef75844bbc9851030e1be8, type: 2}
-  - {fileID: 11400000, guid: 73a9fef2a9ef75844bbc9851030e1be8, type: 2}
+  - {fileID: 11400000, guid: 486a001003dd1034a8985ddee41ece5e, type: 2}
   - {fileID: 11400000, guid: 73a9fef2a9ef75844bbc9851030e1be8, type: 2}
   lowerBodyTraits:
   - {fileID: 11400000, guid: 338bd25f5ea07a743955f6d4b272026c, type: 2}
   - {fileID: 11400000, guid: 48d17a32acb112b4488be451c6279c22, type: 2}
-  - {fileID: 11400000, guid: 48d17a32acb112b4488be451c6279c22, type: 2}
+  - {fileID: 11400000, guid: 477ecd5b8e5f5e94ea5e397c06381033, type: 2}
   - {fileID: 11400000, guid: 48d17a32acb112b4488be451c6279c22, type: 2}
   legsTraits:
   - {fileID: 11400000, guid: bf5b799c5b63a7e47bf5f22f68c36423, type: 2}
