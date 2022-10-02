@@ -35,6 +35,15 @@ public struct Genotype
         );
     }
 
+    public override string ToString()
+    {
+        var a1 = alleleA1 ? "A" : "a";
+        var a2 = alleleA2 ? "A" : "a";
+        var b1 = alleleB1 ? "B" : "b";
+        var b2 = alleleB2 ? "B" : "b";
+        return $"{a1}{a2}{b1}{b2}";
+    }
+
     public Phenotype GetPhenotype()
     {
         if (!(alleleA1 || alleleA2 || alleleB1 || alleleB2))

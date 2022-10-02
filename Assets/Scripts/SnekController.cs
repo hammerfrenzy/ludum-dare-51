@@ -111,6 +111,8 @@ public class SnekController : MonoBehaviour
                 break;
         }
 
+        Debug.Log($"Rolled a new genotype for {mateTraitController.slotType}: {genotype.ToString()}");
+
         genotypeUI.SetGenotype(mateTraitController.slotType, genotype.Value);
 
         // TODO: Update stats based on the new trait?
