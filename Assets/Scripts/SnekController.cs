@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using static Trait;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class SnekController : MonoBehaviour
 {
@@ -56,6 +57,7 @@ public class SnekController : MonoBehaviour
     private AudioSource audioSource2;
     private Animator animator;
     private MateController currentMate;
+    private AchievementUI achievementUI;
 
     private float horizontal;
     private float vertical;
@@ -72,6 +74,7 @@ public class SnekController : MonoBehaviour
         audioSource = GetComponents<AudioSource>()[0];
         audioSource2 = GetComponents<AudioSource>()[1];
         gameManager = FindObjectOfType<GameManagerController>();
+        achievementUI = FindObjectOfType<AchievementUI>();
         traitBank = FindObjectOfType<TraitsBankController>();
         StartCoroutine(RotateJankyForever(0));
     }
@@ -155,6 +158,7 @@ public class SnekController : MonoBehaviour
 
         var genotype = crossResult.Item1;
         var phenotype = crossResult.Item2;
+        AchievementsTracker.AddAchievement(mateTraitController.slotType, genotype, phenotype);
         controller.ApplyCrossResults(genotype, phenotype);
         genotypeUI.UpdateGenetics(mateTraitController.slotType, genotype, phenotype);
 
@@ -238,7 +242,6 @@ public class SnekController : MonoBehaviour
         var mateGenotype = mateTraitController.genotype;
         var newGenotype = snekGenotype.CrossedWith(mateGenotype);
         var newPhenotype = traitBank.GetTrait(snekTraitController.slotType, newGenotype);
-
         return Tuple.Create(newGenotype, newPhenotype);
     }
 
