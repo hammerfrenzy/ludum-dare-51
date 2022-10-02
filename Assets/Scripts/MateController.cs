@@ -57,7 +57,7 @@ public class MateController : MonoBehaviour
 
         foreach (var controller in traitSlotControllers)
         {
-            var traitChance = 0.5f;
+            var traitChance = 0.60f;
             var giveTrait = Random.Range(0f, 1f) < traitChance;
             if (!giveTrait) return;
 
