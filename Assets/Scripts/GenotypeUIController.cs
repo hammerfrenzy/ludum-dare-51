@@ -24,9 +24,8 @@ public class GenotypeUIController : MonoBehaviour
         traitBank = FindObjectOfType<TraitsBankController>();
     }
 
-    public void SetGenotype(Trait.SlotType slot, Genotype genotype)
+    public void UpdateGenetics(Trait.SlotType slot, Genotype genotype, Trait phenotype)
     {
-        var phenotype = traitBank.GetTrait(slot, genotype);
         switch (slot)
         {
             case Trait.SlotType.Head:

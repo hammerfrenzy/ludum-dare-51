@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
@@ -117,30 +118,39 @@ public class SnekController : MonoBehaviour
 
     public void SetTrait(TraitSlotController mateTraitController)
     {
-        Trait potentialTrait = mateTraitController.currentTrait;
-        Genotype? genotype = null;
+
+        Tuple<Genotype, Trait> crossResult;
+        TraitSlotController controller;
         switch (mateTraitController.slotType)
         {
             case SlotType.Head:
-                genotype = CrossTraits(headSlotController, mateTraitController);
+                crossResult = CrossTraits(headSlotController, mateTraitController);
+                controller = headSlotController;
                 break;
             case SlotType.Arms:
-                genotype = CrossTraits(armsSlotController, mateTraitController);
+                crossResult = CrossTraits(armsSlotController, mateTraitController);
+                controller = armsSlotController;
                 break;
             case SlotType.UpperBody:
-                genotype = CrossTraits(upperBodySlotController, mateTraitController);
+                crossResult = CrossTraits(upperBodySlotController, mateTraitController);
+                controller = upperBodySlotController;
                 break;
             case SlotType.LowerBody:
-                genotype = CrossTraits(lowerBodySlotController, mateTraitController);
+                crossResult = CrossTraits(lowerBodySlotController, mateTraitController);
+                controller = lowerBodySlotController;
                 break;
             case SlotType.Legs:
-                genotype = CrossTraits(legsSlotController, mateTraitController);
+                crossResult = CrossTraits(legsSlotController, mateTraitController);
+                controller = legsSlotController;
                 break;
+            default:
+                return;
         }
 
-        // Debug.Log($"Rolled a new genotype for {mateTraitController.slotType}: {genotype.ToString()}");
-
-        genotypeUI.SetGenotype(mateTraitController.slotType, genotype.Value);
+        var genotype = crossResult.Item1;
+        var phenotype = crossResult.Item2;
+        controller.ApplyCrossResults(genotype, phenotype);
+        genotypeUI.UpdateGenetics(mateTraitController.slotType, genotype, phenotype);
 
         // TODO: Update stats based on the new trait?
     }
@@ -213,15 +223,14 @@ public class SnekController : MonoBehaviour
         }
     }
 
-    private Genotype CrossTraits(TraitSlotController snekTraitController, TraitSlotController mateTraitController)
+    private Tuple<Genotype, Trait> CrossTraits(TraitSlotController snekTraitController, TraitSlotController mateTraitController)
     {
         var snekGenotype = snekTraitController.genotype;
         var mateGenotype = mateTraitController.genotype;
         var newGenotype = snekGenotype.CrossedWith(mateGenotype);
         var newPhenotype = traitBank.GetTrait(snekTraitController.slotType, newGenotype);
-        snekTraitController.SetTrait(newPhenotype, newGenotype);
 
-        return newGenotype;
+        return Tuple.Create(newGenotype, newPhenotype);
     }
 
     #region Scene Resetting

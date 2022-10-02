@@ -91,19 +91,19 @@ public class MateController : MonoBehaviour
         switch (traitSlot)
         {
             case Trait.SlotType.Head:
-                headSlotController.SetTrait(phenotype, genotype);
+                headSlotController.ApplyCrossResults(genotype, phenotype);
                 break;
             case Trait.SlotType.Arms:
-                armsSlotController.SetTrait(phenotype, genotype);
+                armsSlotController.ApplyCrossResults(genotype, phenotype);
                 break;
             case Trait.SlotType.UpperBody:
-                upperBodySlotController.SetTrait(phenotype, genotype);
+                upperBodySlotController.ApplyCrossResults(genotype, phenotype);
                 break;
             case Trait.SlotType.LowerBody:
-                lowerBodySlotController.SetTrait(phenotype, genotype);
+                lowerBodySlotController.ApplyCrossResults(genotype, phenotype);
                 break;
             case Trait.SlotType.Legs:
-                legsSlotController.SetTrait(phenotype, genotype);
+                legsSlotController.ApplyCrossResults(genotype, phenotype);
                 break;
         }
     }
