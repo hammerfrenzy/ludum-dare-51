@@ -50,27 +50,25 @@ public class MateController : MonoBehaviour
         wanderTween?.Kill();
     }
 
-    public void AddTraitsPreferring(SnekController snekController)
+    public void AddTraitsPreferring(SnekController snekController, int ringNumber)
     {
-        // For now, choose a random trait from available options
-        // (arm, leg, and upper body have an implement trait).
-        // This will need to be improved once more traits are available.
-
         var traitCount = 0;
-        var maxTraits = 4;
         traitSlotControllers.Shuffle();
+
         foreach (var controller in traitSlotControllers)
         {
-            var traitChance = (1 - (traitCount / maxTraits)) / 1.25f;
+            var traitChance = 0.5f;
             var giveTrait = Random.Range(0f, 1f) < traitChance;
             if (!giveTrait) return;
 
-            // TODO: If they're far away, give something good?
-            var genotype = ChooseGenotypeV2(snekController, controller.slotType);
+            var genotype = ChooseGenotypeV2(snekController, controller.slotType, ringNumber);
             var phenotype = traitsBank.GetTrait(controller.slotType, genotype);
 
             SetTrait(controller.slotType, phenotype, genotype);
             traitCount++;
+
+            // farther rings have more traits
+            if (traitCount > ringNumber) break;
         }
 
         // One last chance to be lucky with a trait
@@ -90,27 +88,37 @@ public class MateController : MonoBehaviour
         return Genotype.Randomized();
     }
 
-    private Genotype ChooseGenotypeV2(SnekController snekController, Trait.SlotType slot)
+    private Genotype ChooseGenotypeV2(SnekController snekController, Trait.SlotType slot, int ringNumber)
     {
-        float useSnekGenotypePercent = 0.3f;
+        // Start with a 50% chance to share a trait,
+        // reduced by 10% per ring level 
+        float useSnekGenotypePercent = 0.5f - (ringNumber * 0.1f);
         var roll = Random.Range(0f, 1f);
         if (roll > useSnekGenotypePercent) return ChooseGenotypeV1();
 
         switch (slot)
         {
             case Trait.SlotType.Head:
-                return snekController.headSlotController.genotype;
+                return SameUnlessRecessive(snekController.headSlotController.genotype);
             case Trait.SlotType.Arms:
-                return snekController.armsSlotController.genotype;
+                return SameUnlessRecessive(snekController.armsSlotController.genotype);
             case Trait.SlotType.UpperBody:
-                return snekController.upperBodySlotController.genotype;
+                return SameUnlessRecessive(snekController.upperBodySlotController.genotype);
             case Trait.SlotType.LowerBody:
-                return snekController.lowerBodySlotController.genotype;
+                return SameUnlessRecessive(snekController.lowerBodySlotController.genotype);
             case Trait.SlotType.Legs:
-                return snekController.legsSlotController.genotype;
+                return SameUnlessRecessive(snekController.legsSlotController.genotype);
             default:
                 return ChooseGenotypeV1();
         }
+    }
+
+    // It feels bad to be surrounded by a bunch of partless werums,
+    // so if our trait is fully recessive let's just ignore it.
+    private Genotype SameUnlessRecessive(Genotype genotype)
+    {
+        var phenotypeColor = genotype.GetPhenotype();
+        return phenotypeColor != Phenotype.Orange ? genotype : ChooseGenotypeV1();
     }
 
     private void SetTrait(Trait.SlotType traitSlot, Trait phenotype, Genotype genotype)

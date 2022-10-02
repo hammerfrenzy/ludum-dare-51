@@ -122,9 +122,9 @@ public class GameManagerController : MonoBehaviour
     private void SpawnMates()
     {
         var totalSpawnRings = 6;
-        var ringSpacing = 8;
+        var ringSpacing = 7;
         var startMates = 1;
-        var radialRandomness = 0.4f; // might need to change per ring?
+        var radialRandomness = Mathf.PI / 8;
 
         for (int i = 0; i < totalSpawnRings; i++)
         {
@@ -144,7 +144,7 @@ public class GameManagerController : MonoBehaviour
                 var finalRadialOffset = new Vector2(dx, dy);
 
                 // - Offset within unit circle
-                var flatOffset = Random.insideUnitCircle * 0.25f;
+                var flatOffset = Random.insideUnitCircle * 0.3f;
 
                 var finalPosition = finalRadialOffset + flatOffset;
                 var mateObject = Instantiate(
@@ -158,7 +158,7 @@ public class GameManagerController : MonoBehaviour
                 // - Assign Traits
                 var mate = mateObject.GetComponent<MateController>();
                 mate.GetComponentsDuringSpawn();
-                mate.AddTraitsPreferring(snek);
+                mate.AddTraitsPreferring(snek, i);
             }
         }
     }
