@@ -31,6 +31,8 @@ public class SnekController : MonoBehaviour
 
     // Editor Hookups
     public DeathAnimController deathAnim;
+    public AudioClip deathScribble;
+    public AudioClip eggTear;
     public GenotypeUIController genotypeUI;
 
     // Stats
@@ -48,6 +50,7 @@ public class SnekController : MonoBehaviour
     private GameManagerController gameManager;
     private TraitsBankController traitBank;
     private AudioSource audioSource;
+    private AudioSource audioSource2;
     private Animator animator;
     private MateController currentMate;
 
@@ -62,7 +65,8 @@ public class SnekController : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GetComponents<AudioSource>()[0];
+        audioSource2 = GetComponents<AudioSource>()[1];
         gameManager = FindObjectOfType<GameManagerController>();
         traitBank = FindObjectOfType<TraitsBankController>();
         StartCoroutine(RotateJankyForever());
@@ -143,6 +147,7 @@ public class SnekController : MonoBehaviour
     public void KillSnek()
     {
         animator.SetTrigger("DeathTrigger");
+        audioSource2.PlayOneShot(deathScribble, 0.5f);
         disableMovement = true;
     }
 
@@ -224,6 +229,7 @@ public class SnekController : MonoBehaviour
     // Called by GameManagerController when the user finds a mate
     public void DisableMovement()
     {
+        audioSource2.PlayOneShot(eggTear, 0.6f);
         disableMovement = true;
     }
 
