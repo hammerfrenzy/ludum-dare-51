@@ -11,11 +11,13 @@ public class MateController : MonoBehaviour
     public TraitSlotController upperBodySlotController;
     public TraitSlotController lowerBodySlotController;
     public TraitSlotController legsSlotController;
+    public List<TraitSlotController> traitSlotControllers;
 
     private TraitsBankController traitsBank;
     private SpriteRenderer spriteRenderer;
 
-    public List<TraitSlotController> traitSlotControllers;
+
+    private Tween wanderTween;
 
     public void GetComponentsDuringSpawn()
     {
@@ -41,6 +43,11 @@ public class MateController : MonoBehaviour
 
         StartCoroutine(RotateJankyForever());
         StartCoroutine(WanderForever());
+    }
+
+    void OnDestroy()
+    {
+        wanderTween?.Kill();
     }
 
     public void AddTraitsPreferring(SnekController snekController)
@@ -108,7 +115,7 @@ public class MateController : MonoBehaviour
     {
         var targetPosition = transform.position + (Vector3)Random.insideUnitCircle;
         var finishedWander = false;
-        var tween = transform
+        wanderTween = transform
             .DOMove(targetPosition, 2f)
             .SetDelay(Random.Range(0, 0.5f))
             .OnComplete(() =>
@@ -121,7 +128,7 @@ public class MateController : MonoBehaviour
             yield return null;
         }
 
-        tween.Kill();
+        wanderTween.Kill();
         StartCoroutine(WanderForever());
     }
 
