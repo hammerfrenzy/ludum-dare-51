@@ -14,11 +14,7 @@ public class SnekController : MonoBehaviour
 
     // Editor Hookups
     public DeathAnimController deathAnim;
-    public GenotypeUI HeadGenotypeUI;
-    public GenotypeUI ArmsGenotypeUI;
-    public GenotypeUI UpperBodyGenotypeUI;
-    public GenotypeUI LowerBodyGenotypeUI;
-    public GenotypeUI LegsGenotypeUI;
+    public GenotypeUIController genotypeUI;
 
     // Stats
     public float speed = 3.0f;
@@ -95,30 +91,27 @@ public class SnekController : MonoBehaviour
     public void SetTrait(TraitSlotController mateTraitController)
     {
         Trait potentialTrait = mateTraitController.currentTrait;
-        Genotype genotype;
+        Genotype? genotype = null;
         switch (mateTraitController.slotType)
         {
             case SlotType.Head:
                 genotype = CrossTraits(headSlotController, mateTraitController);
-                HeadGenotypeUI.SetGenotype(genotype);
                 break;
             case SlotType.Arms:
                 genotype = CrossTraits(armsSlotController, mateTraitController);
-                ArmsGenotypeUI.SetGenotype(genotype);
                 break;
             case SlotType.UpperBody:
                 genotype = CrossTraits(upperBodySlotController, mateTraitController);
-                UpperBodyGenotypeUI.SetGenotype(genotype);
                 break;
             case SlotType.LowerBody:
                 genotype = CrossTraits(lowerBodySlotController, mateTraitController);
-                LowerBodyGenotypeUI.SetGenotype(genotype);
                 break;
             case SlotType.Legs:
                 genotype = CrossTraits(legsSlotController, mateTraitController);
-                LegsGenotypeUI.SetGenotype(genotype);
                 break;
         }
+
+        genotypeUI.SetGenotype(mateTraitController.slotType, genotype.Value);
 
         // TODO: Update stats based on the new trait?
     }
