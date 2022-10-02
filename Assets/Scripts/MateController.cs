@@ -53,11 +53,11 @@ public class MateController : MonoBehaviour
     public void AddTraitsPreferring(SnekController snekController, int ringNumber)
     {
         var traitCount = 0;
-        var maxTraits = 4;
         traitSlotControllers.Shuffle();
+
         foreach (var controller in traitSlotControllers)
         {
-            var traitChance = (1 - (traitCount / maxTraits)) / 1.25f;
+            var traitChance = 0.5f;
             var giveTrait = Random.Range(0f, 1f) < traitChance;
             if (!giveTrait) return;
 
@@ -66,6 +66,9 @@ public class MateController : MonoBehaviour
 
             SetTrait(controller.slotType, phenotype, genotype);
             traitCount++;
+
+            // farther rings have more traits
+            if (traitCount > ringNumber) break;
         }
 
         // One last chance to be lucky with a trait
@@ -96,18 +99,26 @@ public class MateController : MonoBehaviour
         switch (slot)
         {
             case Trait.SlotType.Head:
-                return snekController.headSlotController.genotype;
+                return SameUnlessRecessive(snekController.headSlotController.genotype);
             case Trait.SlotType.Arms:
-                return snekController.armsSlotController.genotype;
+                return SameUnlessRecessive(snekController.armsSlotController.genotype);
             case Trait.SlotType.UpperBody:
-                return snekController.upperBodySlotController.genotype;
+                return SameUnlessRecessive(snekController.upperBodySlotController.genotype);
             case Trait.SlotType.LowerBody:
-                return snekController.lowerBodySlotController.genotype;
+                return SameUnlessRecessive(snekController.lowerBodySlotController.genotype);
             case Trait.SlotType.Legs:
-                return snekController.legsSlotController.genotype;
+                return SameUnlessRecessive(snekController.legsSlotController.genotype);
             default:
                 return ChooseGenotypeV1();
         }
+    }
+
+    // It feels bad to be surrounded by a bunch of partless werums,
+    // so if our trait is fully recessive let's just ignore it.
+    private Genotype SameUnlessRecessive(Genotype genotype)
+    {
+        var phenotypeColor = genotype.GetPhenotype();
+        return phenotypeColor != Phenotype.Orange ? genotype : ChooseGenotypeV1();
     }
 
     private void SetTrait(Trait.SlotType traitSlot, Trait phenotype, Genotype genotype)
