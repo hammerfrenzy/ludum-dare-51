@@ -1001,9 +1001,39 @@ MonoBehaviour:
   sounds:
   - name: Background Music
     clip: {fileID: 8300000, guid: 27a60027d6847684391800367c391981, type: 3}
-    volume: 0.75
+    volume: 1
     pitch: 1
     loop: 1
+    source: {fileID: 0}
+  - name: Walking Noise
+    clip: {fileID: 8300000, guid: 60f52e0a4c6c2df47b56bdd034fe988c, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: SnekSnek
+    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Scribble
+    clip: {fileID: 8300000, guid: 44f3ca9a7df1b984593d10d66d494803, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Heartbreak
+    clip: {fileID: 8300000, guid: 9deb3b38971fb964997b715b45c07a74, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Egg Tear
+    clip: {fileID: 8300000, guid: f3012ae90bb1ccb40b79b517b5bf699f, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
     source: {fileID: 0}
 --- !u!4 &2027533446
 Transform:

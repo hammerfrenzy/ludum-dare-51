@@ -304,22 +304,22 @@ public class SnekController : MonoBehaviour
 
     public void PlayDeathSound()
     {
-        audioSource2.PlayOneShot(deathScribble, 0.5f);
+        FindObjectOfType<AudioManager>().Play("Scribble");
     }
 
     public void PlayHeartbreakSound()
     {
-        audioSource2.PlayOneShot(heartBreak, 0.5f);
+        FindObjectOfType<AudioManager>().Play("Heartbreak");
     }
 
     public void PlaySnekSnek()
     {
-        audioSource2.PlayOneShot(snekSnek, 0.5f);
+        FindObjectOfType<AudioManager>().Play("SnekSnek");
     }
 
     public void PlayHatchSound()
     {
-        audioSource2.PlayOneShot(eggTear, 0.6f);
+        FindObjectOfType<AudioManager>().Play("Egg Tear");
     }
 
     #endregion
