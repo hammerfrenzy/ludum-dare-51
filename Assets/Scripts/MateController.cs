@@ -65,9 +65,8 @@ public class MateController : MonoBehaviour
             var giveTrait = Random.Range(0f, 1f) < traitChance;
             if (!giveTrait) return;
 
-            // TODO: use the genotype from snek sometimes
             // TODO: If they're far away, give something good?
-            var genotype = Genotype.Randomized();
+            var genotype = ChooseGenotypeV2(snekController, controller.slotType);
             var phenotype = traitsBank.GetTrait(controller.slotType, genotype);
 
             SetTrait(controller.slotType, phenotype, genotype);
@@ -83,6 +82,34 @@ public class MateController : MonoBehaviour
 
             SetTrait(controller.slotType, phenotype, genotype);
             traitCount += 1;
+        }
+    }
+
+    private Genotype ChooseGenotypeV1()
+    {
+        return Genotype.Randomized();
+    }
+
+    private Genotype ChooseGenotypeV2(SnekController snekController, Trait.SlotType slot)
+    {
+        float useSnekGenotypePercent = 0.3f;
+        var roll = Random.Range(0f, 1f);
+        if (roll > useSnekGenotypePercent) return ChooseGenotypeV1();
+
+        switch (slot)
+        {
+            case Trait.SlotType.Head:
+                return snekController.headSlotController.genotype;
+            case Trait.SlotType.Arms:
+                return snekController.armsSlotController.genotype;
+            case Trait.SlotType.UpperBody:
+                return snekController.upperBodySlotController.genotype;
+            case Trait.SlotType.LowerBody:
+                return snekController.lowerBodySlotController.genotype;
+            case Trait.SlotType.Legs:
+                return snekController.legsSlotController.genotype;
+            default:
+                return ChooseGenotypeV1();
         }
     }
 
