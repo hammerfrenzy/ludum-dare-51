@@ -19,21 +19,18 @@ public class TraitSlotController : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
-    public void SetTrait(Trait trait, Genotype genotype)
+    public void ApplyCrossResults(Genotype genotype, Trait phenotype)
     {
-        currentTrait = trait;
-
-        if (trait == null)
-        {
-            spriteRenderer.sprite = null;
-            animator.runtimeAnimatorController = null;
-            return;
-        }
-
-        spriteRenderer.sprite = trait.image;
-        animator.runtimeAnimatorController = trait.animator;
-
         this.genotype = genotype;
+        currentTrait = phenotype;
+
+        // DO NOT CHANGE THIS ORDER OR THE ANIMATOR WILL
+        // OVERWRITE THE SPRITE RENDERER WITH ITS FINAL FRAME?
+        // WHICH ISN'T A BIG DEAL EXCEPT WHEN GOING FROM SOME
+        // TRAIT TO NO TRAIT AND THEN YOU GET STUCK WITH THE
+        // FINAL FRAME OF THE PREVIOUS TRAIT WOW COOL.
+        animator.runtimeAnimatorController = phenotype.animator;
+        spriteRenderer.sprite = phenotype.image;
     }
 
     public void SetIsFlipped(bool isFlipped)

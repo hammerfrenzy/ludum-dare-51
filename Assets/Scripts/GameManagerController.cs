@@ -101,10 +101,10 @@ public class GameManagerController : MonoBehaviour
         .OnComplete(() =>
         {
             snek.EndMating();
-            if(snek.CheckWinCondition())
+            if (snek.CheckWinCondition())
             {
                 gameOver = true;
-                winScreenUI.setWinScreenVisible(true);
+                winScreenUI.setWinScreenVisible(true, snek.GetPrimaryPhenotype());
 
                 lerpCamera.disableCameraMovement = true;
                 snek.DisableMovement();
@@ -165,7 +165,6 @@ public class GameManagerController : MonoBehaviour
 
     private void RemoveMates()
     {
-        Debug.Log("Time to delete some mates");
         foreach (var mate in mates)
         {
             Destroy(mate.gameObject);

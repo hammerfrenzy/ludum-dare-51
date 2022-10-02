@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
@@ -33,6 +34,8 @@ public class SnekController : MonoBehaviour
     public DeathAnimController deathAnim;
     public AudioClip deathScribble;
     public AudioClip eggTear;
+    public AudioClip heartBreak;
+    public AudioClip snekSnek;
     public GenotypeUIController genotypeUI;
 
     // Stats
@@ -58,6 +61,7 @@ public class SnekController : MonoBehaviour
     private float vertical;
     private bool didPressMate = false;
     private bool disableMovement = false;
+    private float rotationOffset = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -69,20 +73,24 @@ public class SnekController : MonoBehaviour
         audioSource2 = GetComponents<AudioSource>()[1];
         gameManager = FindObjectOfType<GameManagerController>();
         traitBank = FindObjectOfType<TraitsBankController>();
-        StartCoroutine(RotateJankyForever());
+        StartCoroutine(RotateJankyForever(0));
     }
 
-    private IEnumerator RotateJankyForever()
+    private IEnumerator RotateJankyForever(float initialZRotation)
     {
         var moveRight = true;
-        var maxRotation = 3;
-        var zRotation = maxRotation;
+        var maxOffset = 3;
+        var zOffset = maxOffset;
+        transform.rotation = Quaternion.Euler(0, 0, initialZRotation);
+
+        yield return null;
+
         while (true)
         {
-            transform.rotation = Quaternion.Euler(0, 0, zRotation);
-            if (zRotation == maxRotation) moveRight = false;
-            if (zRotation == -maxRotation) moveRight = true;
-            zRotation = moveRight ? zRotation + maxRotation : zRotation - maxRotation;
+            transform.rotation = Quaternion.Euler(0, 0, initialZRotation + zOffset);
+            if (zOffset == maxOffset) moveRight = false;
+            if (zOffset == -maxOffset) moveRight = true;
+            zOffset = moveRight ? zOffset + maxOffset : zOffset - maxOffset;
 
             yield return new WaitForSeconds(0.5f);
         }
@@ -96,7 +104,7 @@ public class SnekController : MonoBehaviour
 
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-        if(horizontal != 0 || vertical != 0)
+        if (horizontal != 0 || vertical != 0)
         {
             audioSource.volume = 0.75f;
         }
@@ -116,30 +124,39 @@ public class SnekController : MonoBehaviour
 
     public void SetTrait(TraitSlotController mateTraitController)
     {
-        Trait potentialTrait = mateTraitController.currentTrait;
-        Genotype? genotype = null;
+
+        Tuple<Genotype, Trait> crossResult;
+        TraitSlotController controller;
         switch (mateTraitController.slotType)
         {
             case SlotType.Head:
-                genotype = CrossTraits(headSlotController, mateTraitController);
+                crossResult = CrossTraits(headSlotController, mateTraitController);
+                controller = headSlotController;
                 break;
             case SlotType.Arms:
-                genotype = CrossTraits(armsSlotController, mateTraitController);
+                crossResult = CrossTraits(armsSlotController, mateTraitController);
+                controller = armsSlotController;
                 break;
             case SlotType.UpperBody:
-                genotype = CrossTraits(upperBodySlotController, mateTraitController);
+                crossResult = CrossTraits(upperBodySlotController, mateTraitController);
+                controller = upperBodySlotController;
                 break;
             case SlotType.LowerBody:
-                genotype = CrossTraits(lowerBodySlotController, mateTraitController);
+                crossResult = CrossTraits(lowerBodySlotController, mateTraitController);
+                controller = lowerBodySlotController;
                 break;
             case SlotType.Legs:
-                genotype = CrossTraits(legsSlotController, mateTraitController);
+                crossResult = CrossTraits(legsSlotController, mateTraitController);
+                controller = legsSlotController;
                 break;
+            default:
+                return;
         }
 
-        // Debug.Log($"Rolled a new genotype for {mateTraitController.slotType}: {genotype.ToString()}");
-
-        genotypeUI.SetGenotype(mateTraitController.slotType, genotype.Value);
+        var genotype = crossResult.Item1;
+        var phenotype = crossResult.Item2;
+        controller.ApplyCrossResults(genotype, phenotype);
+        genotypeUI.UpdateGenetics(mateTraitController.slotType, genotype, phenotype);
 
         // TODO: Update stats based on the new trait?
     }
@@ -147,7 +164,6 @@ public class SnekController : MonoBehaviour
     public void KillSnek()
     {
         animator.SetTrigger("DeathTrigger");
-        audioSource2.PlayOneShot(deathScribble, 0.5f);
         disableMovement = true;
     }
 
@@ -158,7 +174,9 @@ public class SnekController : MonoBehaviour
 
     public void SendToWinScreenBox()
     {
-        transform.position = new Vector3(7f, 2.5f, 0f);
+        transform.position = new Vector3(6.75f, 3f, 0f);
+        StopAllCoroutines();
+        StartCoroutine(RotateJankyForever(10));
     }
 
     // Note: This is working because didPressMate is
@@ -173,6 +191,7 @@ public class SnekController : MonoBehaviour
         {
             animator.SetTrigger("MateTrigger");
             gameManager.MateReset();
+            PlaySnekSnek();
         }
 
         didPressMate = false;
@@ -213,15 +232,14 @@ public class SnekController : MonoBehaviour
         }
     }
 
-    private Genotype CrossTraits(TraitSlotController snekTraitController, TraitSlotController mateTraitController)
+    private Tuple<Genotype, Trait> CrossTraits(TraitSlotController snekTraitController, TraitSlotController mateTraitController)
     {
         var snekGenotype = snekTraitController.genotype;
         var mateGenotype = mateTraitController.genotype;
         var newGenotype = snekGenotype.CrossedWith(mateGenotype);
         var newPhenotype = traitBank.GetTrait(snekTraitController.slotType, newGenotype);
-        snekTraitController.SetTrait(newPhenotype, newGenotype);
 
-        return newGenotype;
+        return Tuple.Create(newGenotype, newPhenotype);
     }
 
     #region Scene Resetting
@@ -229,7 +247,6 @@ public class SnekController : MonoBehaviour
     // Called by GameManagerController when the user finds a mate
     public void DisableMovement()
     {
-        audioSource2.PlayOneShot(eggTear, 0.6f);
         disableMovement = true;
     }
 
@@ -256,5 +273,50 @@ public class SnekController : MonoBehaviour
         }
         return true;
     }
+
+    public Phenotype GetPrimaryPhenotype()
+    {
+        if (TraitControllers.All(slot => slot.genotype.GetPhenotype() == Phenotype.Blue))
+        {
+            return Phenotype.Blue;
+        }
+        else if (TraitControllers.All(slot => slot.genotype.GetPhenotype() == Phenotype.Purple))
+        {
+            return Phenotype.Purple;
+        }
+        else if (TraitControllers.All(slot => slot.genotype.GetPhenotype() == Phenotype.Green))
+        {
+            return Phenotype.Green;
+        }
+        else
+        {
+            return Phenotype.Orange;
+        }
+    }
+    #endregion
+
+
+    #region Sounds
+
+    public void PlayDeathSound()
+    {
+        audioSource2.PlayOneShot(deathScribble, 0.5f);
+    }
+
+    public void PlayHeartbreakSound()
+    {
+        audioSource2.PlayOneShot(heartBreak, 0.5f);
+    }
+
+    public void PlaySnekSnek()
+    {
+        audioSource2.PlayOneShot(snekSnek, 0.5f);
+    }
+
+    public void PlayHatchSound()
+    {
+        audioSource2.PlayOneShot(eggTear, 0.6f);
+    }
+
     #endregion
 }
