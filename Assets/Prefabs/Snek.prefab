@@ -777,6 +777,7 @@ MonoBehaviour:
   deathAnim: {fileID: 2004678452}
   deathScribble: {fileID: 8300000, guid: 2b4aef3f4565cd940b752fb2d38953e7, type: 3}
   eggTear: {fileID: 8300000, guid: 809954a447f93a544a717b409731656d, type: 3}
+  heartBreak: {fileID: 8300000, guid: 9deb3b38971fb964997b715b45c07a74, type: 3}
   genotypeUI: {fileID: 0}
   speed: 3
   attractiveness: 1
