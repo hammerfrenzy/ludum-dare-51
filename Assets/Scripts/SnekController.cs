@@ -33,6 +33,7 @@ public class SnekController : MonoBehaviour
     public DeathAnimController deathAnim;
     public AudioClip deathScribble;
     public AudioClip eggTear;
+    public AudioClip heartBreak;
     public GenotypeUIController genotypeUI;
 
     // Stats
@@ -283,6 +284,11 @@ public class SnekController : MonoBehaviour
     public void PlayDeathSound()
     {
         audioSource2.PlayOneShot(deathScribble, 0.5f);
+    }
+
+    public void PlayHeartbreakSound()
+    {
+        audioSource2.PlayOneShot(heartBreak, 0.5f);
     }
 
     public void PlayHatchSound()
