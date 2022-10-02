@@ -775,11 +775,17 @@ MonoBehaviour:
   lowerBodySlotController: {fileID: 1927342046861332696}
   legsSlotController: {fileID: 5197111220488098341}
   deathAnim: {fileID: 2004678452}
+  deathScribble: {fileID: 8300000, guid: 2b4aef3f4565cd940b752fb2d38953e7, type: 3}
+  eggTear: {fileID: 8300000, guid: 809954a447f93a544a717b409731656d, type: 3}
+  genotypeUI: {fileID: 0}
   speed: 3
   attractiveness: 1
   intimidation: 1
   maxHealth: 10
   currentHealth: 0
+  bruh:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!50 &6035714502739598744
 Rigidbody2D:
   serializedVersion: 4
