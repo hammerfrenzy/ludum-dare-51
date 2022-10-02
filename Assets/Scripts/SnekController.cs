@@ -47,7 +47,7 @@ public class SnekController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private GameManagerController gameManager;
     private TraitsBankController traitBank;
-
+    private AudioSource audioSource;
     private Animator animator;
     private MateController currentMate;
 
@@ -62,6 +62,7 @@ public class SnekController : MonoBehaviour
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
         gameManager = FindObjectOfType<GameManagerController>();
         traitBank = FindObjectOfType<TraitsBankController>();
         StartCoroutine(RotateJankyForever());
@@ -86,10 +87,15 @@ public class SnekController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        audioSource.volume = 0f;
         if (disableMovement) return;
 
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
+        if(horizontal != 0 || vertical != 0)
+        {
+            audioSource.volume = 0.75f;
+        }
         didPressMate = Input.GetKey("space");
 
         UpdateSpriteFlip(horizontal);
