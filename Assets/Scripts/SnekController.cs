@@ -63,7 +63,6 @@ public class SnekController : MonoBehaviour
     private float vertical;
     private bool didPressMate = false;
     private bool disableMovement = false;
-    private float rotationOffset = 0f;
 
     // Start is called before the first frame update
     void Start()
