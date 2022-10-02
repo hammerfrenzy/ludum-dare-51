@@ -86,7 +86,6 @@ public class GameManagerController : MonoBehaviour
 
                 // Move overlay so that it shrinks to new snek position
                 GameResetOverlay.transform.position = snek.transform.position;
-
                 RemoveMates();
                 SpawnMates();
                 ShrinkOverlay();
