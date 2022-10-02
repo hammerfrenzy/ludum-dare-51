@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Fin
   image: {fileID: 21300000, guid: b8eebbee5a2c50e44afbb924ed0c0db6, type: 3}
+  phenotypeImage: {fileID: 21300000, guid: 82c65e155dcca6846abb9a924b446bcf, type: 3}
   animator: {fileID: 9100000, guid: b461187ff2d0cfa4cb241caccb58a4a8, type: 2}
   offset: {x: 0, y: 0}
   speedModifier: 0

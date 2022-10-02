@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: Tentacle Legs
   image: {fileID: 21300000, guid: da2a6852cb0befd43961780424e92132, type: 3}
+  phenotypeImage: {fileID: 21300000, guid: e79ecb05f45d3804c88dc5a09826ed52, type: 3}
   animator: {fileID: 9100000, guid: a2791c75e83fd0e4ba9e98bdcfc89b2f, type: 2}
   offset: {x: 0, y: 0}
   speedModifier: 1
