@@ -159,7 +159,6 @@ public class SnekController : MonoBehaviour
         var genotype = crossResult.Item1;
         var phenotype = crossResult.Item2;
         AchievementsTracker.AddAchievement(mateTraitController.slotType, genotype, phenotype);
-        achievementUI.UpdateAchievements();
         controller.ApplyCrossResults(genotype, phenotype);
         genotypeUI.UpdateGenetics(mateTraitController.slotType, genotype, phenotype);
 
@@ -264,6 +263,7 @@ public class SnekController : MonoBehaviour
     // Called by GameManagerController when the reset process is completed
     public void EndMating()
     {
+        achievementUI.UpdateAchievements();
         currentMate = null;
         disableMovement = false;
     }
