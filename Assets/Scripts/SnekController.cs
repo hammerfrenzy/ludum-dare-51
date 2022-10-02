@@ -96,7 +96,7 @@ public class SnekController : MonoBehaviour
 
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-        if(horizontal != 0 || vertical != 0)
+        if (horizontal != 0 || vertical != 0)
         {
             audioSource.volume = 0.75f;
         }
@@ -147,7 +147,6 @@ public class SnekController : MonoBehaviour
     public void KillSnek()
     {
         animator.SetTrigger("DeathTrigger");
-        audioSource2.PlayOneShot(deathScribble, 0.5f);
         disableMovement = true;
     }
 
@@ -229,7 +228,7 @@ public class SnekController : MonoBehaviour
     // Called by GameManagerController when the user finds a mate
     public void DisableMovement()
     {
-        audioSource2.PlayOneShot(eggTear, 0.6f);
+
         disableMovement = true;
     }
 
@@ -256,5 +255,20 @@ public class SnekController : MonoBehaviour
         }
         return true;
     }
+    #endregion
+
+
+    #region Sounds
+
+    public void PlayDeathSound()
+    {
+        audioSource2.PlayOneShot(deathScribble, 0.5f);
+    }
+
+    public void PlayHatchSound()
+    {
+        audioSource2.PlayOneShot(eggTear, 0.6f);
+    }
+
     #endregion
 }
