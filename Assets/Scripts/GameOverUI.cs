@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameOverUI : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
+    public GameObject uiCanvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,6 +16,8 @@ public class GameOverUI : MonoBehaviour
     {
         if (visible)
         {
+            Canvas canvas = uiCanvas.GetComponent<Canvas>();
+            canvas.sortingLayerName = "UI Over Player";
             canvasGroup.alpha = 1;
             canvasGroup.interactable = true;
         }
