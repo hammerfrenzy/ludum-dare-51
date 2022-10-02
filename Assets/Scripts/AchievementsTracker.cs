@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,20 +6,13 @@ using UnityEngine;
 public static class AchievementsTracker
 {
     public static List<Trait> traits;
+    public static List<Tuple<Trait.SlotType, Phenotype>> tupleList = new List<Tuple<Trait.SlotType, Phenotype>>();
     public static void AddAchievement(Trait.SlotType slot, Genotype newGenotype, Trait phenotype)
     {
-        switch (slot)
+        var potentialTuple = Tuple.Create(slot, newGenotype.GetPhenotype());
+        if(!tupleList.Contains(potentialTuple))
         {
-            case Trait.SlotType.Head:
-                break;
-            case Trait.SlotType.Arms:
-                break;
-            case Trait.SlotType.UpperBody:
-                break;
-            case Trait.SlotType.LowerBody:
-                break;
-            case Trait.SlotType.Legs:
-                break;
+            tupleList.Add(potentialTuple);
         }
     }
 }
