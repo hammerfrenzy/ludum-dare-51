@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class WinScreenUI : MonoBehaviour
@@ -11,15 +10,32 @@ public class WinScreenUI : MonoBehaviour
     public Sprite cyborgPurple;
     public Sprite seaGreen;
     public Sprite miscOrange;
+
     void Start()
     {
         image = GetComponent<Image>();
         canvasGroup = GetComponent<CanvasGroup>();
     }
 
+    void Update()
+    {
+        if (!canvasGroup.interactable) return;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            ReturnToMenu();
+        }
+    }
+
+    public void ReturnToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void setWinScreenVisible(bool visible, Phenotype snekPhenotype)
     {
-        switch(snekPhenotype)
+        Debug.Log(snekPhenotype);
+        switch (snekPhenotype)
         {
             case Phenotype.Blue:
                 image.sprite = trogdorBlue;

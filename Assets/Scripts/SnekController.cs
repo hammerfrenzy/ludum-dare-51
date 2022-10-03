@@ -188,7 +188,7 @@ public class SnekController : MonoBehaviour
 
     public void SendToWinScreenBox()
     {
-        transform.position = new Vector3(6.75f, 3f, 0f);
+        transform.position = new Vector3(6.5f, 3f, 0f);
         StopAllCoroutines();
         StartCoroutine(RotateJankyForever(10));
     }
@@ -266,8 +266,12 @@ public class SnekController : MonoBehaviour
     private void Metaphase(MateController mate)
     {
         speedFromTraits = 0;
-        foreach (var mateTraitController in mate.traitSlotControllers)
+        foreach (var mateTraitController in mate.traitControllerList)
         {
+            // seems like null controllers are making it in here somehow?
+            // it soft locks the game when this happens so just skip for now. 
+            if (mateTraitController == null) return;
+
             SetTrait(mateTraitController);
         }
     }

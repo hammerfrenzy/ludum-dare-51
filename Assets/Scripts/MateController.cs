@@ -11,7 +11,20 @@ public class MateController : MonoBehaviour
     public TraitSlotController upperBodySlotController;
     public TraitSlotController lowerBodySlotController;
     public TraitSlotController legsSlotController;
-    public List<TraitSlotController> traitSlotControllers;
+    public List<TraitSlotController> traitControllerList
+    {
+        get
+        {
+            return new List<TraitSlotController>()
+            {
+                headSlotController,
+                armsSlotController,
+                upperBodySlotController,
+                lowerBodySlotController,
+                legsSlotController,
+            };
+        }
+    }
 
     private TraitsBankController traitsBank;
     private SpriteRenderer spriteRenderer;
@@ -23,12 +36,6 @@ public class MateController : MonoBehaviour
     {
         traitsBank = FindObjectOfType<TraitsBankController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        traitSlotControllers.Add(headSlotController);
-        traitSlotControllers.Add(armsSlotController);
-        traitSlotControllers.Add(upperBodySlotController);
-        traitSlotControllers.Add(lowerBodySlotController);
-        traitSlotControllers.Add(legsSlotController);
     }
 
     // Start is called before the first frame update
@@ -53,12 +60,25 @@ public class MateController : MonoBehaviour
     public void AddTraitsPreferring(SnekController snekController, int ringNumber)
     {
         var traitCount = 0;
-        var maxTraits = 4;
-        traitSlotControllers.Shuffle();
+        var randomizedTraits = traitControllerList;
+        randomizedTraits.Shuffle();
 
-        foreach (var controller in traitSlotControllers)
+        var maxTraits = 2;
+        switch (ringNumber)
         {
-            var traitChance = 0.65f;
+            case 3:
+                maxTraits = 3;
+                break;
+            case 4:
+            case 5:
+            case 6:
+                maxTraits = 4;
+                break;
+        }
+
+        foreach (var controller in randomizedTraits)
+        {
+            var traitChance = 0.55f;
             var giveTrait = Random.Range(0f, 1f) < traitChance;
             if (!giveTrait) return;
 
@@ -73,7 +93,9 @@ public class MateController : MonoBehaviour
             }
 
             // farther rings have more traits
-            if (traitCount > ringNumber || traitCount == maxTraits) break;
+            var minTraits = Mathf.Min(2, ringNumber);
+            var canGainMoreTraits = traitCount < minTraits || traitCount < maxTraits;
+            if (!canGainMoreTraits) break;
         }
     }
 
