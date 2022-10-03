@@ -5510,6 +5510,36 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Instructions VO
+    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Well Rounded VO
+    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Technophile VO
+    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Under the Sea VO
+    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Trogdor VO
+    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   muteSfx: 1
 --- !u!4 &2027533446
 Transform:
