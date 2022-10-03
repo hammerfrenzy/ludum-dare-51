@@ -96,8 +96,13 @@ public class AchievementUI : MonoBehaviour
 
     public bool visible;
     private RectTransform rectTransform;
+    public GameObject uiCanvas;
+    private Canvas canvas;
+    private Tween tween;
+
     private void Start()
     {
+        canvas = uiCanvas.GetComponent<Canvas>();
         rectTransform = GetComponent<RectTransform>();
     }
 
@@ -106,19 +111,28 @@ public class AchievementUI : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.LeftShift))
         {
             UpdateAchievements();
-            rectTransform.DOAnchorPosX(32, 0.5f);
+            tween.Kill();
+            tween = rectTransform.DOAnchorPosX(32, 0.5f);
+            canvas.sortingLayerName = "UI Over Player";
         }
         if (Input.GetKeyUp(KeyCode.Tab) || Input.GetKeyDown(KeyCode.LeftShift))
         {
-            rectTransform.DOAnchorPosX(-600, 0.5f);
+            tween.Kill();
+            tween = rectTransform.DOAnchorPosX(-600, 0.5f);
+            canvas.sortingLayerName = "UI";
         }
+    }
+
+    void OnDestroy()
+    {
+        tween?.Kill();
     }
 
     public void UpdateAchievements()
     {
-        foreach(var tupleThing in AchievementsTracker.tupleList)
+        foreach (var tupleThing in AchievementsTracker.tupleList)
         {
-            switch(tupleThing.Item1)
+            switch (tupleThing.Item1)
             {
                 case Trait.SlotType.Head:
                     SetAchievementIcon(headSlots, tupleThing.Item2);
@@ -141,7 +155,7 @@ public class AchievementUI : MonoBehaviour
 
     private void SetAchievementIcon(List<AchievementSlot> slots, Phenotype phenotype)
     {
-        switch(phenotype)
+        switch (phenotype)
         {
             case Phenotype.Purple:
                 slots[0].Test();
