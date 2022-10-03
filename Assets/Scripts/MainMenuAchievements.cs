@@ -96,22 +96,32 @@ public class MainMenuAchievements : MonoBehaviour
     // Start is called before the first frame update
     public bool visible;
     private RectTransform rectTransform;
-    private void Start()
+    void Start()
     {
         rectTransform = GetComponent<RectTransform>();
     }
 
-    private void Update()
+    void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.LeftShift))
+        if(Input.GetMouseButtonDown(0) && visible)
+        {
+            visible = false;
+        }
+
+        if (visible)
         {
             UpdateAchievements();
             rectTransform.DOAnchorPosX(-150, 0.5f);
         }
-        if (Input.GetKeyUp(KeyCode.Tab) || Input.GetKeyDown(KeyCode.LeftShift))
+        else
         {
             rectTransform.DOAnchorPosX(-1226, 0.5f);
         }
+    }
+
+    public void ToggleVisibility()
+    {
+        visible = !visible;
     }
 
     public void UpdateAchievements()
