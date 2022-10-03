@@ -7,6 +7,12 @@ public static class AchievementsTracker
 {
     public static List<Trait> traits;
     public static HashSet<Tuple<Trait.SlotType, Phenotype>> tupleList = new HashSet<Tuple<Trait.SlotType, Phenotype>>();
+
+    public static bool trogEnd = false;
+    public static bool techEnd = false;
+    public static bool seaEnd = false;
+    public static bool miscEnd = false;
+
     public static void AddAchievement(Trait.SlotType slot, Genotype newGenotype, Trait phenotype)
     {
         if (newGenotype.GetPhenotype() == Phenotype.Orange) return;

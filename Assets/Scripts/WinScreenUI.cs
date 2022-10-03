@@ -31,6 +31,10 @@ public class WinScreenUI : MonoBehaviour
 
     public void ReturnToMenu()
     {
+        audioManager.Stop("Trogdor Ending");
+        audioManager.Stop("Tech Ending");
+        audioManager.Stop("Sea Ending");
+        audioManager.Stop("Misc Ending");
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -40,18 +44,22 @@ public class WinScreenUI : MonoBehaviour
         {
             case Phenotype.Blue:
                 image.sprite = trogdorBlue;
+                AchievementsTracker.trogEnd = true;
                 audioManager.Play("Trogdor Ending");
                 break;
             case Phenotype.Purple:
                 image.sprite = cyborgPurple;
+                AchievementsTracker.techEnd = true;
                 audioManager.Play("Tech Ending");
                 break;
             case Phenotype.Green:
                 image.sprite = seaGreen;
+                AchievementsTracker.seaEnd = true;
                 audioManager.Play("Sea Ending");
                 break;
             case Phenotype.Orange:
                 image.sprite = miscOrange;
+                AchievementsTracker.miscEnd = true;
                 audioManager.Play("Misc Ending");
                 break;
         }

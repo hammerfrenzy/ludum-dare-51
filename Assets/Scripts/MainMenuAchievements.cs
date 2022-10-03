@@ -1,5 +1,6 @@
 using DG.Tweening;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -93,7 +94,28 @@ public class MainMenuAchievements : MonoBehaviour
         }
     }
     #endregion
-    // Start is called before the first frame update
+
+    public AchievementStar goldStar;
+    public AchievementStar silverStar;
+    public AchievementStar blueStar;
+    public AchievementStar purpleStar;
+    public AchievementStar greenStar;
+    public AchievementStar redStar;
+    private List<AchievementStar> achievemntStars
+    {
+        get
+        {
+            return new List<AchievementStar>()
+            {
+                silverStar,
+                blueStar,
+                purpleStar,
+                greenStar,
+                redStar
+            };
+        }
+    }
+
     public bool visible = false;
     private RectTransform rectTransform;
     private Tween displayTween;
@@ -101,6 +123,7 @@ public class MainMenuAchievements : MonoBehaviour
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
+        SetAchievementStars();
     }
 
     void Update()
@@ -109,12 +132,12 @@ public class MainMenuAchievements : MonoBehaviour
         {
             UpdateAchievements();
             displayTween?.Kill();
-            displayTween = rectTransform.DOAnchorPosX(-150, 0.5f);
+            displayTween = rectTransform.DOAnchorPosX(-1, 0.5f);
         }
         else
         {
             displayTween?.Kill();
-            displayTween = rectTransform.DOAnchorPosX(-1226, 0.5f);
+            displayTween = rectTransform.DOAnchorPosX(-1144, 0.5f);
         }
     }
 
@@ -153,6 +176,36 @@ public class MainMenuAchievements : MonoBehaviour
                     SetAchievementIcon(legsBodySlots, tupleThing.Item2);
                     break;
             }
+        }
+    }
+
+    public void SetAchievementStars()
+    {
+        if(AchievementsTracker.tupleList.Count >= 15)
+        {
+            silverStar.starEnabled = true;
+        }
+        if(AchievementsTracker.trogEnd)
+        {
+            blueStar.starEnabled = true;
+        }
+        if (AchievementsTracker.seaEnd)
+        {
+            greenStar.starEnabled = true;
+        }
+        if (AchievementsTracker.techEnd)
+        {
+            purpleStar.starEnabled = true;
+        }
+        if (AchievementsTracker.miscEnd)
+        {
+            redStar.starEnabled = true;
+        }
+        
+
+        if (achievemntStars.All(star => star.starEnabled))
+        {
+            goldStar.starEnabled = true;
         }
     }
 

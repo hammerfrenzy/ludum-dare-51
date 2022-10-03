@@ -84,7 +84,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        s.source.Play();
+        s.source.Stop();
     }
 
     public void ToggleBGM()

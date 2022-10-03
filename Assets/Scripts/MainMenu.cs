@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private AudioManager audioManager;
+    private void Awake()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space))
@@ -25,6 +30,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
+        audioManager.Stop("Instruction VO");
         SceneManager.LoadScene("SampleScene");
     }
 
@@ -35,6 +41,7 @@ public class MainMenu : MonoBehaviour
 
     public void ReturnToMain()
     {
+        audioManager.Stop("Instruction VO");
         SceneManager.LoadScene("MainMenu");
     }
 
