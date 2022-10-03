@@ -81,6 +81,18 @@ public class AudioManager : MonoBehaviour
     public void ToggleSFX()
     {
         muteSfx = !muteSfx;
-        Debug.Log(muteSfx);
+    }
+
+    public void PlayGonGit()
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == "Gon Git");
+
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + "not found in AudioManager.");
+            return;
+        }
+
+        s.source.Play();
     }
 }

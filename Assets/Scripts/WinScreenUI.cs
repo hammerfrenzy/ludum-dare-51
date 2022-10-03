@@ -6,6 +6,7 @@ public class WinScreenUI : MonoBehaviour
 {
     private CanvasGroup canvasGroup;
     private Image image;
+    private AudioManager audioManager;
     public Sprite trogdorBlue;
     public Sprite cyborgPurple;
     public Sprite seaGreen;
@@ -15,6 +16,7 @@ public class WinScreenUI : MonoBehaviour
     {
         image = GetComponent<Image>();
         canvasGroup = GetComponent<CanvasGroup>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
     void Update()
@@ -34,20 +36,23 @@ public class WinScreenUI : MonoBehaviour
 
     public void setWinScreenVisible(bool visible, Phenotype snekPhenotype)
     {
-        Debug.Log(snekPhenotype);
         switch (snekPhenotype)
         {
             case Phenotype.Blue:
                 image.sprite = trogdorBlue;
+                audioManager.Play("blue ending");
                 break;
             case Phenotype.Purple:
                 image.sprite = cyborgPurple;
+                audioManager.Play("purple ending");
                 break;
             case Phenotype.Green:
                 image.sprite = seaGreen;
+                audioManager.Play("green ending");
                 break;
             case Phenotype.Orange:
                 image.sprite = miscOrange;
+                audioManager.Play("orange ending");
                 break;
         }
 
