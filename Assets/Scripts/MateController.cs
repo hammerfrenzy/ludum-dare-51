@@ -11,7 +11,20 @@ public class MateController : MonoBehaviour
     public TraitSlotController upperBodySlotController;
     public TraitSlotController lowerBodySlotController;
     public TraitSlotController legsSlotController;
-    public List<TraitSlotController> traitSlotControllers;
+    public List<TraitSlotController> traitControllerList
+    {
+        get
+        {
+            return new List<TraitSlotController>()
+            {
+                headSlotController,
+                armsSlotController,
+                upperBodySlotController,
+                lowerBodySlotController,
+                legsSlotController,
+            };
+        }
+    }
 
     private TraitsBankController traitsBank;
     private SpriteRenderer spriteRenderer;
@@ -23,12 +36,6 @@ public class MateController : MonoBehaviour
     {
         traitsBank = FindObjectOfType<TraitsBankController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-
-        traitSlotControllers.Add(headSlotController);
-        traitSlotControllers.Add(armsSlotController);
-        traitSlotControllers.Add(upperBodySlotController);
-        traitSlotControllers.Add(lowerBodySlotController);
-        traitSlotControllers.Add(legsSlotController);
     }
 
     // Start is called before the first frame update
@@ -54,9 +61,10 @@ public class MateController : MonoBehaviour
     {
         var traitCount = 0;
         var maxTraits = 4;
-        traitSlotControllers.Shuffle();
+        var randomizedTraits = traitControllerList;
+        randomizedTraits.Shuffle();
 
-        foreach (var controller in traitSlotControllers)
+        foreach (var controller in randomizedTraits)
         {
             var traitChance = 0.65f;
             var giveTrait = Random.Range(0f, 1f) < traitChance;
