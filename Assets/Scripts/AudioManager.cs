@@ -81,7 +81,6 @@ public class AudioManager : MonoBehaviour
     public void ToggleSFX()
     {
         muteSfx = !muteSfx;
-        Debug.Log(muteSfx);
     }
 
     public void PlayGonGit()

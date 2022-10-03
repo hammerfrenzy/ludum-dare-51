@@ -10,10 +10,4 @@ public class InstructionsVO : MonoBehaviour
         audioManager = FindObjectOfType<AudioManager>();
         audioManager.Play("Instruction VO");
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
