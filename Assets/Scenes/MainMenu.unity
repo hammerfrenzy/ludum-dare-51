@@ -5510,6 +5510,36 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   muteSfx: 1
+  - name: Trogdor Ending VO
+    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Technophile Ending VO
+    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Under The Sea Ending VO
+    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Well Rounded Ending VO
+    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Instructions VO
+    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
+    volume: 0.75
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
 --- !u!4 &2027533446
 Transform:
   m_ObjectHideFlags: 0

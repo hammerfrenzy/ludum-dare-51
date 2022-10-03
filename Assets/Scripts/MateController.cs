@@ -66,19 +66,20 @@ public class MateController : MonoBehaviour
         var maxTraits = 2;
         switch (ringNumber)
         {
+            case 2:
             case 3:
+            case 4:
                 maxTraits = 3;
                 break;
-            case 4:
             case 5:
-            case 6:
+                Debug.Log("yeah its here");
                 maxTraits = 4;
                 break;
         }
 
         foreach (var controller in randomizedTraits)
         {
-            var traitChance = 0.55f;
+            var traitChance = 0.75f;
             var giveTrait = Random.Range(0f, 1f) < traitChance;
             if (!giveTrait) return;
 
@@ -106,9 +107,8 @@ public class MateController : MonoBehaviour
 
     private Genotype ChooseGenotypeV2(SnekController snekController, Trait.SlotType slot, int ringNumber)
     {
-        // Start with a 50% chance to share a trait,
-        // reduced by 10% per ring level 
-        float useSnekGenotypePercent = 0.5f - (ringNumber * 0.1f);
+        // High chance to share a trait reduced by 10% per ring level 
+        float useSnekGenotypePercent = 0.7f - (ringNumber * 0.1f);
         var roll = Random.Range(0f, 1f);
         if (roll > useSnekGenotypePercent) return ChooseGenotypeV1();
 
