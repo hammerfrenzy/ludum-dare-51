@@ -105,11 +105,6 @@ public class MainMenuAchievements : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && visible)
-        {
-            visible = false;
-        }
-
         if (visible)
         {
             UpdateAchievements();
