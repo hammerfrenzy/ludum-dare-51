@@ -38,6 +38,7 @@ public class SnekController : MonoBehaviour
     public AudioClip snekSnek;
     public GenotypeUIController genotypeUI;
     public GameObject HeartGroup;
+    private List<SpriteRenderer> heartSprites;
 
     // Stats
     public float speed = 3.0f;
@@ -64,7 +65,6 @@ public class SnekController : MonoBehaviour
     private float vertical;
     private bool didPressMate = false;
     private bool disableMovement = false;
-    private Coroutine flipHearts;
 
     // Start is called before the first frame update
     void Start()
@@ -77,7 +77,10 @@ public class SnekController : MonoBehaviour
         gameManager = FindObjectOfType<GameManagerController>();
         achievementUI = FindObjectOfType<AchievementUI>();
         traitBank = FindObjectOfType<TraitsBankController>();
+        heartSprites = HeartGroup.GetComponentsInChildren<SpriteRenderer>().ToList();
+
         StartCoroutine(RotateJankyForever(0));
+        StartCoroutine(FlipHeartsForever());
     }
 
     private IEnumerator RotateJankyForever(float initialZRotation)
@@ -243,27 +246,14 @@ public class SnekController : MonoBehaviour
     private void UpdateHearts()
     {
         var showHearts = currentMate != null;
-
-        var isActive = HeartGroup.activeSelf;
-        if (isActive == showHearts) return;
-
-
-        // if (isActive)
-        // {
-        //     flipHearts = StartCoroutine(FlipHeartsForever());
-        // }
-        // else
-        // {
-        //     HeartGroup.SetActive(false);
-        //     if (flipHearts != null) StopCoroutine(flipHearts);
-        // }
+        foreach (var spriteRenderer in heartSprites)
+        {
+            spriteRenderer.enabled = showHearts;
+        }
     }
 
     private IEnumerator FlipHeartsForever()
     {
-        HeartGroup.SetActive(true);
-        yield return null;
-
         while (true)
         {
             var currentXScale = HeartGroup.transform.localScale.x;
