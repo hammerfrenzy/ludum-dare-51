@@ -23,11 +23,6 @@ public class GameManagerController : MonoBehaviour
     private bool isResetting = false;
     private bool gameOver = false;
 
-    void Awake()
-    {
-        DOTween.SetTweensCapacity(500, 50);
-    }
-
     void Start()
     {
         snek = FindObjectOfType<SnekController>();
