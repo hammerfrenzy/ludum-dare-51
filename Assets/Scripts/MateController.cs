@@ -60,13 +60,25 @@ public class MateController : MonoBehaviour
     public void AddTraitsPreferring(SnekController snekController, int ringNumber)
     {
         var traitCount = 0;
-        var maxTraits = 4;
         var randomizedTraits = traitControllerList;
         randomizedTraits.Shuffle();
 
+        var maxTraits = 2;
+        switch (ringNumber)
+        {
+            case 3:
+                maxTraits = 3;
+                break;
+            case 4:
+            case 5:
+            case 6:
+                maxTraits = 4;
+                break;
+        }
+
         foreach (var controller in randomizedTraits)
         {
-            var traitChance = 0.65f;
+            var traitChance = 0.55f;
             var giveTrait = Random.Range(0f, 1f) < traitChance;
             if (!giveTrait) return;
 
@@ -81,7 +93,9 @@ public class MateController : MonoBehaviour
             }
 
             // farther rings have more traits
-            if (traitCount > ringNumber || traitCount == maxTraits) break;
+            var minTraits = Mathf.Min(2, ringNumber);
+            var canGainMoreTraits = traitCount < minTraits || traitCount < maxTraits;
+            if (!canGainMoreTraits) break;
         }
     }
 
