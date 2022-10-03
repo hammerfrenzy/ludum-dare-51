@@ -94,8 +94,10 @@ public class MainMenuAchievements : MonoBehaviour
     }
     #endregion
     // Start is called before the first frame update
-    public bool visible;
+    public bool visible = false;
     private RectTransform rectTransform;
+    private Tween displayTween;
+
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -103,7 +105,7 @@ public class MainMenuAchievements : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && visible)
+        if (Input.GetMouseButtonDown(0) && visible)
         {
             visible = false;
         }
@@ -111,17 +113,27 @@ public class MainMenuAchievements : MonoBehaviour
         if (visible)
         {
             UpdateAchievements();
-            rectTransform.DOAnchorPosX(-150, 0.5f);
+            displayTween?.Kill();
+            displayTween = rectTransform.DOAnchorPosX(-150, 0.5f);
         }
         else
         {
-            rectTransform.DOAnchorPosX(-1226, 0.5f);
+            displayTween?.Kill();
+            displayTween = rectTransform.DOAnchorPosX(-1226, 0.5f);
         }
     }
 
+    // this is a called by the UI,
+    // don't be fooled into thinking 
+    // it's an unused function.
     public void ToggleVisibility()
     {
         visible = !visible;
+    }
+
+    void OnDestroy()
+    {
+        displayTween?.Kill();
     }
 
     public void UpdateAchievements()
