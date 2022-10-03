@@ -1,11 +1,10 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using static Trait;
-using UnityEngine.SocialPlatforms.Impl;
 
 public class SnekController : MonoBehaviour
 {
@@ -38,6 +37,8 @@ public class SnekController : MonoBehaviour
     public AudioClip heartBreak;
     public AudioClip snekSnek;
     public GenotypeUIController genotypeUI;
+    public GameObject HeartGroup;
+    private List<SpriteRenderer> heartSprites;
 
     // Stats
     public float speed = 3.0f;
@@ -76,7 +77,10 @@ public class SnekController : MonoBehaviour
         gameManager = FindObjectOfType<GameManagerController>();
         achievementUI = FindObjectOfType<AchievementUI>();
         traitBank = FindObjectOfType<TraitsBankController>();
+        heartSprites = HeartGroup.GetComponentsInChildren<SpriteRenderer>().ToList();
+
         StartCoroutine(RotateJankyForever(0));
+        StartCoroutine(FlipHeartsForever());
     }
 
     private IEnumerator RotateJankyForever(float initialZRotation)
@@ -113,6 +117,7 @@ public class SnekController : MonoBehaviour
         }
         didPressMate = Input.GetKey("space");
 
+        UpdateHearts();
         UpdateSpriteFlip(horizontal);
     }
 
@@ -132,23 +137,23 @@ public class SnekController : MonoBehaviour
         TraitSlotController controller;
         switch (mateTraitController.slotType)
         {
-            case SlotType.Head:
+            case Trait.SlotType.Head:
                 crossResult = CrossTraits(headSlotController, mateTraitController);
                 controller = headSlotController;
                 break;
-            case SlotType.Arms:
+            case Trait.SlotType.Arms:
                 crossResult = CrossTraits(armsSlotController, mateTraitController);
                 controller = armsSlotController;
                 break;
-            case SlotType.UpperBody:
+            case Trait.SlotType.UpperBody:
                 crossResult = CrossTraits(upperBodySlotController, mateTraitController);
                 controller = upperBodySlotController;
                 break;
-            case SlotType.LowerBody:
+            case Trait.SlotType.LowerBody:
                 crossResult = CrossTraits(lowerBodySlotController, mateTraitController);
                 controller = lowerBodySlotController;
                 break;
-            case SlotType.Legs:
+            case Trait.SlotType.Legs:
                 crossResult = CrossTraits(legsSlotController, mateTraitController);
                 controller = legsSlotController;
                 break;
@@ -205,6 +210,12 @@ public class SnekController : MonoBehaviour
         didPressMate = false;
     }
 
+    // Remove current mate when we leave so hearts update
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        currentMate = null;
+    }
+
     private void UpdateSpriteFlip(float horizontalInput)
     {
         var isFlipped = spriteRenderer.flipX;
@@ -230,6 +241,25 @@ public class SnekController : MonoBehaviour
         lowerBodySlotController.SetIsFlipped(newFlipState);
         legsSlotController.SetIsFlipped(newFlipState);
         deathAnim.spriteRenderer.flipX = newFlipState;
+    }
+
+    private void UpdateHearts()
+    {
+        var showHearts = currentMate != null;
+        foreach (var spriteRenderer in heartSprites)
+        {
+            spriteRenderer.enabled = showHearts;
+        }
+    }
+
+    private IEnumerator FlipHeartsForever()
+    {
+        while (true)
+        {
+            var currentXScale = HeartGroup.transform.localScale.x;
+            HeartGroup.transform.localScale = new Vector3(-currentXScale, 1, 1);
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     private void Metaphase(MateController mate)
