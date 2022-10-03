@@ -5510,36 +5510,6 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   muteSfx: 1
-  - name: Trogdor Ending VO
-    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
-    volume: 0.75
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Technophile Ending VO
-    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
-    volume: 0.75
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Under The Sea Ending VO
-    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
-    volume: 0.75
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Well Rounded Ending VO
-    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
-    volume: 0.75
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
-  - name: Instructions VO
-    clip: {fileID: 8300000, guid: 9f6c40855f780b5478aedd1feba1a1ae, type: 3}
-    volume: 0.75
-    pitch: 1
-    loop: 0
-    source: {fileID: 0}
 --- !u!4 &2027533446
 Transform:
   m_ObjectHideFlags: 0
@@ -5781,7 +5751,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -5831,7 +5801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
