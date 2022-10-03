@@ -9,6 +9,7 @@ public static class AchievementsTracker
     public static HashSet<Tuple<Trait.SlotType, Phenotype>> tupleList = new HashSet<Tuple<Trait.SlotType, Phenotype>>();
     public static void AddAchievement(Trait.SlotType slot, Genotype newGenotype, Trait phenotype)
     {
+        if (newGenotype.GetPhenotype() == Phenotype.Orange) return;
         var potentialTuple = Tuple.Create(slot, newGenotype.GetPhenotype());
         if (!tupleList.Contains(potentialTuple))
         {
