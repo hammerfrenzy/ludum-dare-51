@@ -141,7 +141,6 @@ public class MainMenuAchievements : MonoBehaviour
 
     private void SetAchievementIcon(List<AchievementSlot> slots, Phenotype phenotype)
     {
-        Debug.Log($"Setting {phenotype.ToString()}");
         switch (phenotype)
         {
             case Phenotype.Purple:

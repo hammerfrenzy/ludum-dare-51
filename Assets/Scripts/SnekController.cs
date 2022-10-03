@@ -81,6 +81,7 @@ public class SnekController : MonoBehaviour
 
         StartCoroutine(RotateJankyForever(0));
         StartCoroutine(FlipHeartsForever());
+
     }
 
     private IEnumerator RotateJankyForever(float initialZRotation)

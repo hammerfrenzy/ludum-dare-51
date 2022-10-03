@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class AchievementUI : MonoBehaviour
 {
@@ -104,6 +105,7 @@ public class AchievementUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab) || Input.GetKeyDown(KeyCode.LeftShift))
         {
+            UpdateAchievements();
             rectTransform.DOAnchorPosX(32, 0.5f);
         }
         if (Input.GetKeyUp(KeyCode.Tab) || Input.GetKeyDown(KeyCode.LeftShift))
@@ -139,7 +141,6 @@ public class AchievementUI : MonoBehaviour
 
     private void SetAchievementIcon(List<AchievementSlot> slots, Phenotype phenotype)
     {
-        Debug.Log($"Setting {phenotype.ToString()}");
         switch(phenotype)
         {
             case Phenotype.Purple:
