@@ -40,19 +40,19 @@ public class WinScreenUI : MonoBehaviour
         {
             case Phenotype.Blue:
                 image.sprite = trogdorBlue;
-                audioManager.Play("blue ending");
+                audioManager.Play("Trogdor Ending");
                 break;
             case Phenotype.Purple:
                 image.sprite = cyborgPurple;
-                audioManager.Play("purple ending");
+                audioManager.Play("Tech Ending");
                 break;
             case Phenotype.Green:
                 image.sprite = seaGreen;
-                audioManager.Play("green ending");
+                audioManager.Play("Sea Ending");
                 break;
             case Phenotype.Orange:
                 image.sprite = miscOrange;
-                audioManager.Play("orange ending");
+                audioManager.Play("Misc Ending");
                 break;
         }
 

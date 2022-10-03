@@ -313,7 +313,7 @@ public class SnekController : MonoBehaviour
         // Check if any slots do not have traits
         if (TraitControllers.Any(slot => !slot.HasTrait()))
         {
-            return false;
+            return true;
         }
         return true;
     }

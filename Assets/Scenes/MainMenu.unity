@@ -5510,6 +5510,36 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     source: {fileID: 0}
+  - name: Instruction VO
+    clip: {fileID: 8300000, guid: 8924960b08059a14680ca5853107c97e, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Tech Ending
+    clip: {fileID: 8300000, guid: 49fe873e34379b5449b4de6ec4916512, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Sea Ending
+    clip: {fileID: 8300000, guid: 2c20231bf4182ee42b0c6ad8004a4057, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Trogdor Ending
+    clip: {fileID: 8300000, guid: 89c81dceb56f7464481ac92f707822dd, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: Misc Ending
+    clip: {fileID: 8300000, guid: eab90d722da117047932f20ccb934ebd, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
   muteSfx: 1
 --- !u!4 &2027533446
 Transform:
