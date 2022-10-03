@@ -72,7 +72,7 @@ public class MateController : MonoBehaviour
                 maxTraits = 3;
                 break;
             case 5:
-                Debug.Log("yeah its here");
+            case 6:
                 maxTraits = 4;
                 break;
         }
