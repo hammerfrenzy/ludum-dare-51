@@ -8,7 +8,7 @@ public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
     public static AudioManager instance;
-    public bool muteSfx = true; //instantly set to false on load because checkbox sucks
+    public bool muteSfx = false; //instantly set to false on load because checkbox sucks??
     void Awake()
     {
         if (instance == null)
@@ -34,6 +34,10 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Play("Background Music");
+    }
     public void Play(string name)
     {
         if (muteSfx) return;
