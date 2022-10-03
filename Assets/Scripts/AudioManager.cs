@@ -8,7 +8,8 @@ public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
     public static AudioManager instance;
-    public bool muteSfx = false; //instantly set to false on load because checkbox sucks??
+    public bool muteSfx = false;
+    public bool muteBgm = false;
     void Awake()
     {
         if (instance == null)
@@ -37,6 +38,26 @@ public class AudioManager : MonoBehaviour
     private void Start()
     {
         Play("Background Music");
+    }
+
+    void FixedUpdate()
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == "Background Music");
+
+        if (s == null)
+        {
+            Debug.LogWarning("Sound: " + name + "not found in AudioManager.");
+            return;
+        }
+
+        if (muteBgm)
+        {
+            s.source.volume = 0.0f;
+        }
+        else
+        {
+            s.source.volume = 0.5f;
+        }
     }
     public void Play(string name)
     {
@@ -68,18 +89,7 @@ public class AudioManager : MonoBehaviour
 
     public void ToggleBGM()
     {
-        Sound s = Array.Find(sounds, sound => sound.name == "Background Music");
-
-        if (s == null)
-        {
-            Debug.LogWarning("Sound: " + name + "not found in AudioManager.");
-            return;
-        }
-
-        if(s.source.isPlaying)
-            s.source.Stop();
-        else
-            s.source.Play();
+        muteBgm = !muteBgm;
     }
 
     public void ToggleSFX()

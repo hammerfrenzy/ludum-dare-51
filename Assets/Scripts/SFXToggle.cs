@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class MusicToggle : MonoBehaviour
+public class SFXToggle : MonoBehaviour
 {
     public AudioManager audioManager;
     private Image image;
@@ -14,7 +14,7 @@ public class MusicToggle : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(audioManager.muteBgm)
+        if (audioManager.muteSfx)
         {
             image.color = Color.clear;
         }
@@ -25,8 +25,8 @@ public class MusicToggle : MonoBehaviour
 
     }
 
-    public void ToggleBGM()
+    public void ToggleSFX()
     {
-        audioManager.ToggleBGM();
+        audioManager.ToggleSFX();
     }
 }
