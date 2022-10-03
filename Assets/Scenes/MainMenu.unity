@@ -5470,7 +5470,7 @@ MonoBehaviour:
   sounds:
   - name: Background Music
     clip: {fileID: 8300000, guid: 39d170909eaed484fb69489e996e975b, type: 3}
-    volume: 1
+    volume: 0.5
     pitch: 1
     loop: 1
     source: {fileID: 0}
