@@ -56,10 +56,10 @@ public class SnekController : MonoBehaviour
     private GameManagerController gameManager;
     private TraitsBankController traitBank;
     private AudioSource audioSource;
-    private AudioSource audioSource2;
     private Animator animator;
     private MateController currentMate;
     private AchievementUI achievementUI;
+    private AudioManager audioManager;
 
     private float horizontal;
     private float vertical;
@@ -73,11 +73,11 @@ public class SnekController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponents<AudioSource>()[0];
-        audioSource2 = GetComponents<AudioSource>()[1];
         gameManager = FindObjectOfType<GameManagerController>();
         achievementUI = FindObjectOfType<AchievementUI>();
         traitBank = FindObjectOfType<TraitsBankController>();
         heartSprites = HeartGroup.GetComponentsInChildren<SpriteRenderer>().ToList();
+        audioManager = FindObjectOfType<AudioManager>();
 
         StartCoroutine(RotateJankyForever(0));
         StartCoroutine(FlipHeartsForever());
@@ -112,7 +112,7 @@ public class SnekController : MonoBehaviour
 
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-        if (horizontal != 0 || vertical != 0)
+        if (!audioManager.muteSfx && (horizontal != 0 || vertical != 0))
         {
             audioSource.volume = 0.75f;
         }
